@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GotBetController!{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">Bienvenue sur GoTBet</h1>
+        <p class="lead">Pariez sur les personnages qui vont survivre, mourir ou devenir un marcheur blanc dans la saison finale de Games of Thrones.
+        La saison 8 démarre le 14 avril 2019 ! Faites vos paris avant le début du premier épisode !</p>
+        <hr class="my-4">
+        <p>Répondez au questionnaire en cliquant ci-dessous.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Questionnaire</a>
+        </p>
+    </div>
+    <div style="margin-left:20px;">
+        <div class="card border-primary mb-3" style="max-width: 38rem;">
+            <div class="card-header">Trailer</div>
+            <div class="card-body">
+                <p class="card-text"><iframe width="560" height="315" src="https://www.youtube.com/embed/wA38GCX4Tb0?controls=0" frameborder="0" 
+                allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></p>
+        </div>
+    </div>
+{% endblock %}
