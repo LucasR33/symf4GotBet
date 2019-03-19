@@ -27,32 +27,15 @@
                                         <tr>
                                         <td>{{ perso.prenom }}</td>
                                         <td>{{ perso.nom }}</td>
-                                        <td>{{ perso.etat }}</td>
-                                        </tr>
-                                    </tbody>
-                            {% endfor %}
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-        <div style="margin-left:20px;">
-            <div class="card border-primary mb-3" style="max-width: 30rem;">
-                <div class="card-header">Questions</div>
-                    <div class="card-body">
-                        <table class="table table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Question</th>
-                                    <th scope="col">Réponse</th>
-                                </tr>
-                            </thead>
-                            {% for question in questions %}
-                                    <tbody>
-                                        <tr>
-                                        <td>{{ question.libelle }}</td>
-                                        <td>{{ question.reponse }}</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select class="custom-select">
+                                                    <option selected="1">Vivant</option>
+                                                    <option value="2">Mort</option>
+                                                    <option value="3">Marcheur blanc</option>
+                                                </select>
+                                            </div>
+                                        </td>
                                         </tr>
                                     </tbody>
                             {% endfor %}
