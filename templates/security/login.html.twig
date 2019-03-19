@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -8,10 +8,10 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputMail" class="sr-only">Mail</label>
-    <input type="text" value="{{ last_username }}" name="mail" id="inputMail" class="form-control" placeholder="Mail" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
+    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+    <label for="inputMail" class="sr-only">E-mail</label>
+    <input type="text" value="{{ last_email }}" name="mail" id="inputMail" class="form-control" placeholder="Mail" required autofocus>
+    <label for="inputPassword" class="sr-only">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
     <input type="hidden" name="_csrf_token"
@@ -30,7 +30,7 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Connexion
     </button>
 </form>
 {% endblock %}

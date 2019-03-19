@@ -20,6 +20,11 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $nom;
 
     /**
@@ -47,6 +52,17 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
     public function getNom(): ?string
     {
         return $this->nom;

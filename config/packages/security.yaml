@@ -4,11 +4,10 @@ security:
         App\Entity\User:
             algorithm: sha1
     providers:
-#        in_memory: { memory: ~ }
-        our_db_provider:
+        users:
             entity:
-                class: App\Entity\User
-                property: mail
+                class: 'App\Entity\User'
+                
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
