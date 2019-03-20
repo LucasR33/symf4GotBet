@@ -8,41 +8,66 @@
         <p class="lead">Répondez aux questions suivantes.</p>
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col">
-        <div style="margin-left:20px;">
-            <div class="card border-primary mb-3" style="max-width: 30rem;">
-                <div class="card-header">Personnages</div>
-                    <div class="card-body">
-                        <table class="table table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Prénom</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Etat</th>
-                                </tr>
-                            </thead>
-                            {% for perso in personnages %}
-                                    <tbody>
-                                        <tr>
-                                        <td>{{ perso.prenom }}</td>
-                                        <td>{{ perso.nom }}</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <select class="custom-select">
-                                                    <option selected="1">Vivant</option>
-                                                    <option value="2">Mort</option>
-                                                    <option value="3">Marcheur blanc</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        </tr>
-                                    </tbody>
-                            {% endfor %}
-                        </table>
+    
+        <div class="row">
+            <div class="col">
+            <div style="margin-left:20px;">
+                <div class="card border-primary mb-3" style="max-width: 30rem;">
+                    <div class="card-header">Personnages</div>
+                        <div class="card-body">
+                        <form action="{{ path('createReponse') }}" method="POST">
+                            <table class="table table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Prénom</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Etat</th>
+                                    </tr>
+                                </thead>
+                                {% for perso in personnages %}
+                                        <tbody>
+                                            <form action="">
+                                                <tr>
+                                                <td>{{ perso.prenom }}</td>
+                                                <td id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
+                                                            <option>Vivant</option>
+                                                            <option>Mort</option>
+                                                            <option>Marcheur blanc</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                </tr>
+                                            </form>
+                                        </tbody>
+                                {% endfor %}
+                            </table>
+                            <button type="submit" class="btn btn-outline-primary btn-block" id="validate">Valider</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
     </div>
+{% endblock %}
+{% block script %}
+
+<script>
+    $("#validate").click(function(){
+        var id= $(".id").attr("id");
+        var statut= $("#statut").val();
+        $.ajax({
+            type:"POST",
+            url:"{{path('createReponse')}}",
+            data: "id = "+ id +"& statut = "+ statut,
+            success: function(data){
+                console.log(data);
+            }
+        })
+    });
+</script>
+
 {% endblock %}
