@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Personnage;
 use App\Entity\Question;
+use App\Entity\User;
 
 class GotBetController extends AbstractController
 {
@@ -34,5 +35,20 @@ class GotBetController extends AbstractController
             'personnages' => $personnages,
             'questions' => $questions
         ]);
+    }
+
+    /**
+     * @Route("/gotbet/scores", name="scores")
+     */
+    public function scores()
+    {   
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findBy([], ['score' => 'DESC']);
+        
+        return $this->render('got_bet/scores.html.twig', [
+            'controller_name' => 'GotBetController',
+            'users' => $users,
+        ]);
+
     }
 }
