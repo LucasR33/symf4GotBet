@@ -10,9 +10,9 @@
 
     <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
     <label for="inputMail" class="sr-only">E-mail</label>
-    <input type="text" value="{{ last_email }}" name="mail" id="inputMail" class="form-control" placeholder="Mail" required autofocus>
+    <input type="text" value="{{ last_email }}" name="email" id="inputMail" class="form-control" placeholder="Adresse e-mail..." required autofocus>
     <label for="inputPassword" class="sr-only">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe..." required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
