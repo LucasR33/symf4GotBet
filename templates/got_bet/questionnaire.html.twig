@@ -24,25 +24,25 @@
                                         <th scope="col">Etat</th>
                                     </tr>
                                 </thead>
-                                {% for perso in personnages %}
                                         <tbody>
                                             <form action="">
-                                                <tr>
-                                                <td>{{ perso.prenom }}</td>
-                                                <td id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
-                                                            <option>Vivant</option>
-                                                            <option>Mort</option>
-                                                            <option>Marcheur blanc</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                </tr>
+                                                {% for perso in personnages %}
+                                                    <tr>
+                                                    <td>{{ perso.prenom }}</td>
+                                                    <td id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
+                                                                <option>Vivant</option>
+                                                                <option>Mort</option>
+                                                                <option>Marcheur blanc</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                {% endfor %}
                                             </form>
                                         </tbody>
-                                {% endfor %}
                             </table>
                             <button type="submit" class="btn btn-outline-primary btn-block" id="validate">Valider</button>
                             </form>

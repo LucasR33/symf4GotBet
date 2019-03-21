@@ -9,7 +9,7 @@ use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 //use Symfony\Component\Routing\Annotation\JsonResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -45,21 +45,24 @@ class GotBetController extends AbstractController
     /**
      * @Route("/gotbet/createReponse", name="createReponse", methods="POST")
      */
-    public function createReponse(Request $request){
+    public function createReponse(Request $request, UserInterface $user){
         $repo = $this->getDoctrine()->getRepository(Personnage::class);
         $personnages = $repo->findAll();
-        var_dump($request->request);
+        //var_dump($request->request);
         //var_dump($request->request->get("statut_1"));
-        foreach( $request->request as $saisie){
-          //  var_dump($saisie);
-        }
 
-        // foreach($personnages as $p){
-        //     $pid = $p->id;
-        //     var_dump($pid);
-        //     $pstatut = $request->request->statut_{{$pid}};
-        //     var_dump($pstatut);
-        // }
+        foreach($personnages as $p){
+            $pid = $p->id;
+            $statut = "statut_{$pid}";
+            $pstatut = $request->request->get($statut);
+            var_dump($pid, $pstatut);
+            $reponse = new Reponse();
+            $reponse->setPersonnage($pid);
+            $reponse->setStatut($pstatut);
+            $reponse->setUser($user = $this->getUser());
+            $entityManager->persist($product);
+            $entityManager->flush();
+        }
 
         return $this->render('got_bet/questionnaire.html.twig', [
         'controller_name' => 'GotBetController',
