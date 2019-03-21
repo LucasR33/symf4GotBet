@@ -9,9 +9,17 @@
         La saison 8 démarre le 14 avril 2019 ! Faites vos paris avant le début du premier épisode !</p>
         <hr class="my-4">
         <p>Répondez au questionnaire en cliquant ci-dessous.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Questionnaire</a>
-        </p>
+        {% if app.user %}
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Questionnaire</a>
+            </p>
+        {% else %}
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('app_register') }}" role="button">Inscription</a>
+
+                <a class="btn btn-primary btn-lg" href="{{ path('app_login') }}" role="button">Connexion</a>
+            </p>
+        {% endif %}
     </div>
     <div style="margin-left:20px;">
         <div class="card border-primary mb-3" style="max-width: 38rem;">

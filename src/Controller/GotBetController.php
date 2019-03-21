@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Personnage;
 use App\Entity\Question;
+use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Security\Core\User\UserInterface;
+//use Symfony\Component\Routing\Annotation\JsonResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GotBetController extends AbstractController
 {
@@ -34,5 +38,17 @@ class GotBetController extends AbstractController
             'personnages' => $personnages,
             'questions' => $questions
         ]);
+    }
+
+    /**
+     * @Route("/gotbet/createReponse", name="createReponse", methods="POST")
+     */
+    public function createReponse(Request $request){
+        $statut = $request->request->get("statut");
+        $id = $request->request->get("id");
+        //$userId = $user->getId();
+        return new JsonResponse(        
+            $request,
+            JsonResponse::HTTP_OK);
     }
 }

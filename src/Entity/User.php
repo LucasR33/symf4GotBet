@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
 class User implements UserInterface, \Serializable
 {
@@ -32,7 +34,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,24 +86,24 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getMail(): ?string
     {
-        return $this->email;
+        return $this->mail;
     }
 
-    public function setEmail(string $email): self
+    public function setMail(string $mail): self
     {
-        $this->email = $email;
+        $this->mail = $mail;
 
         return $this;
     }
 
-    public function getpassword(): ?string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setpassword(string $password): self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -121,7 +123,7 @@ class User implements UserInterface, \Serializable
     }
 
     public function getUsername() {
-        return $this->email;
+        return $this->mail;
     }
 
     public function getSalt() {
@@ -150,7 +152,9 @@ class User implements UserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->mail,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -162,7 +166,9 @@ class User implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->mail,
             $this->password,
             // see section on salt below
             // $this->salt
