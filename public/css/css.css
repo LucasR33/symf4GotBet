@@ -1,0 +1,34 @@
+@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400);
+
+.jumbotrol {
+   
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.3rem;
+    color: #ffffff;
+   
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+  .display5{
+    font-family:'viking';
+    position: absolute; /* postulat de départ */
+    top: 25%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%);
+  }
+  .lead2{
+    position: absolute; /* postulat de départ */
+    top: 70%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%);
+  }
+  .m4r{
+    position: absolute; /* postulat de départ */
+    top: 80%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%);
+  }
+

@@ -15,36 +15,37 @@
                 <div class="card border-primary mb-3" style="max-width: 30rem;">
                     <div class="card-header">Personnages</div>
                         <div class="card-body">
+                        <form action="{{ path('createReponse') }}" method="POST">
                             <table class="table table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Prénom</th>
                                         <th scope="col">Nom</th>
                                         <th scope="col">Etat</th>
-                                        <th scope="col">Valider</th>
                                     </tr>
                                 </thead>
-                               
                                         <tbody>
                                             <form action="">
-                                                <tr>
-                                                <td>{{ personnages[1].prenom }}</td>
-                                                <td id="{{ personnages[1].id }}" class="id">{{ personnages[1].nom }}</td>
-                                                <td>
-                                                    <div class="form-group">
-                                                        <select class="custom-select" name="statut" id="statut">
-                                                            <option>Vivant</option>
-                                                            <option>Mort</option>
-                                                            <option>Marcheur blanc</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td><button type="button" class="btn btn-outline-primary btn-block" id="validate">Valider</button></td>
-                                                </tr>
+                                                {% for perso in personnages %}
+                                                    <tr>
+                                                    <td>{{ perso.prenom }}</td>
+                                                    <td id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
+                                                                <option>Vivant</option>
+                                                                <option>Mort</option>
+                                                                <option>Marcheur blanc</option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                {% endfor %}
                                             </form>
                                         </tbody>
-                              
                             </table>
+                            <button type="submit" class="btn btn-outline-primary btn-block" id="validate">Valider</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -61,9 +62,9 @@
         $.ajax({
             type:"POST",
             url:"{{path('createReponse')}}",
-            data: "id ="+id+"& statut ="+statut,
-            success: function($data){
-                console.log($data);
+            data: "id = "+ id +"& statut = "+ statut,
+            success: function(data){
+                console.log(data);
             }
         })
     });
