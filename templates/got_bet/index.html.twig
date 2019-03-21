@@ -25,20 +25,28 @@
        
         {% if app.user %}
             <p class="btn-cont">
-                <a class="btn" href="#">Questionnaire</a>
+                <a class="btn" href="#">Questionnaire
                 <span class='line-1'></span>
                 <span class='line-2'></span>
                 <span class='line-3'></span>
                 <span class='line-4'></span>
+                </a>
             </p>
         {% else %}
             <p class="btn-cont">
-                <a class="btn" href="{{ path('app_register') }}">Inscription</a>
-                <a class="btn" href="{{ path('app_login') }}">Connexion</a>
+                <a class="btn" href="{{ path('app_register') }}">Inscription
                 <span class='line-1'></span>
                 <span class='line-2'></span>
                 <span class='line-3'></span>
                 <span class='line-4'></span>
+                </a>
+                
+                <a class="btn" href="{{ path('app_login') }}">Connexion
+                <span class='line-1'></span>
+                <span class='line-2'></span>
+                <span class='line-3'></span>
+                <span class='line-4'></span>
+                </a>
             </p>
         {% endif %}
 
