@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Personnage;
 use App\Entity\Question;
 use App\Entity\Reponse;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Security\Core\User\UserInterface;
 //use Symfony\Component\Routing\Annotation\JsonResponse;
@@ -53,16 +54,28 @@ class GotBetController extends AbstractController
           //  var_dump($saisie);
         }
 
-        foreach($personnages as $p){
-            $pid = $p->id;
-            var_dump($pid);
-            $pstatut = $request->request->statut_{{$pid}};
-            var_dump($pstatut);
-        }
+        // foreach($personnages as $p){
+        //     $pid = $p->id;
+        //     var_dump($pid);
+        //     $pstatut = $request->request->statut_{{$pid}};
+        //     var_dump($pstatut);
+        // }
 
         return $this->render('got_bet/questionnaire.html.twig', [
         'controller_name' => 'GotBetController',
         'personnages' => $personnages
     ]);
     }
+
+    /**
+     * @Route("/gotbet/scores", name="scores", methods="GET")
+     */
+    public function scores(){
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findBy([], ['score' => 'DESC']);
+
+        return $this->render('got_bet/scores.html.twig', [
+            'users' => $users
+        ]);
+    } 
 }
