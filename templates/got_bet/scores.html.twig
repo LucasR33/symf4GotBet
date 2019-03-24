@@ -5,7 +5,10 @@
 {% block body %}
     <div class="jumbotron">
         <h1 class="display-4">Scores</h1>
-        <p class="lead">Tableau des scores et résultats</p>
+        <p class="lead">Tableau des scores et résultats</br>
+                        Chaque bonne réponse rapporte 1 point.</br>
+                        Les 5 premiers remporte un cadeau !
+        </p>
     </div>
     <div class="container">
     <div class="row">
@@ -30,11 +33,11 @@
                                         <td>{{ user.score }}</td>
                                         </tr>
                                     </tbody>
-                            {% endfor %} 
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 {% endblock %}
