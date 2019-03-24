@@ -24,7 +24,7 @@ class GotBetController extends AbstractController
             'controller_name' => 'GotBetController',
         ]);
     }
-
+    
     /**
      * @Route("/gotbet/questionnaire", name="questionnaire")
      */
@@ -78,8 +78,21 @@ class GotBetController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findBy([], ['score' => 'DESC']);
 
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach ($users as $u) {
+          $query3 = $entityManager->createQuery(
+            'UPDATE App\Entity\User u SET u.score = (
+              SELECT count(p)
+              FROM App\Entity\Personnage p
+              INNER JOIN App\Entity\Reponse r
+              WHERE r.user = :u AND r.personnage = p.id
+              AND r.statut = p.etat)
+              WHERE u.id = :u')
+              ->setParameter('u', $u);
+            $query3->execute();
+        }
         return $this->render('got_bet/scores.html.twig', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
@@ -101,13 +114,37 @@ class GotBetController extends AbstractController
     public function monCompte(){
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT p.nom, p.prenom, r.statut
+            'SELECT p.nom, p.prenom, r.statut, u.score
             FROM App\Entity\Personnage p
             INNER JOIN App\Entity\Reponse r
-            WHERE p.id = r.personnage AND r.user = :u')
+            INNER JOIN App\Entity\User u
+            WHERE p.id = r.personnage AND r.user = :u AND u.id = :u')
             ->setParameter('u', $this->getUser());
+
+        $query2 = $entityManager->createQuery(
+            'SELECT r.statut, p.etat, u.score, COUNT(r) as total
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\Reponse r
+            INNER JOIN App\Entity\User u
+            WHERE r.user = :u AND u.id = :u AND r.personnage = p.id
+            AND r.statut = p.etat')
+            ->setParameter('u', $this->getUser());
+
+        $query3 = $entityManager->createQuery(
+          'UPDATE App\Entity\User u SET u.score = (
+            SELECT count(p)
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\Reponse r
+            WHERE r.user = :u AND r.personnage = p.id
+            AND r.statut = p.etat)
+            WHERE u.id = :u')
+            ->setParameter('u', $this->getUser());
+          $query3->execute();
+
         return $this->render('got_bet/compte.html.twig', [
-            'persorep' => $query->execute()
+            'persorep' => $query->execute(),
+            'res' => $query2->execute()
         ]);
+
     }
 }
