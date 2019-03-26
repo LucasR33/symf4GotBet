@@ -24,7 +24,7 @@ class GotBetController extends AbstractController
             'controller_name' => 'GotBetController',
         ]);
     }
-    
+
     /**
      * @Route("/gotbet/questionnaire", name="questionnaire")
      */
@@ -64,10 +64,15 @@ class GotBetController extends AbstractController
             $entityManager->persist($reponse);
             $entityManager->flush();
         }
+        $entityManager = $this->getDoctrine()->getManager();
+        $queryJouer = $entityManager->createQuery(
+          'UPDATE App\Entity\User u SET u.jouer = 1
+          WHERE u.id = :u')
+          ->setParameter('u', $this->getUser());
 
-        return $this->render('got_bet/questionnaire.html.twig', [
-        'controller_name' => 'GotBetController',
-        'personnages' => $personnages
+
+        return $this->render('got_bet/index.html.twig', [
+        $queryJouer->execute()
     ]);
     }
 

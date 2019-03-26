@@ -44,12 +44,22 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $score;
+    private $score = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="user")
      */
     private $reponses;
+
+    /**
+     * @ORM\Column(type="binary", nullable=true)
+     */
+    private $ajouer;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $jouer;
 
     public function __construct()
     {
@@ -214,6 +224,30 @@ class User implements UserInterface, \Serializable
                 $reponse->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAjouer()
+    {
+        return $this->ajouer;
+    }
+
+    public function setAjouer($ajouer): self
+    {
+        $this->ajouer = $ajouer;
+
+        return $this;
+    }
+
+    public function getJouer(): ?bool
+    {
+        return $this->jouer;
+    }
+
+    public function setJouer(bool $jouer): self
+    {
+        $this->jouer = $jouer;
 
         return $this;
     }
