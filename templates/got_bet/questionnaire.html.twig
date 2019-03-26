@@ -2,10 +2,11 @@
 
 {% block title %}GotBet - Questionnaire{% endblock %}
 
-{% block body %}
+{% block body  %}
+
     {% if (app.user.jouer == 0)%}
-    <div class="jumbotron">
-        <h1 class="display-4">Questionnaire</h1>
+    <div class="jumbotrol" >
+        <h1 class="display-5" style="font-family: 'viking'" >Questionnaire</h1>
         <p class="lead">Devinez le futur des personnages de Games Of Thrones dans l'ultime saison.</br>
                         Chaque bonne réponse vous rapporteront 1 point.</br>
                         Découvrez après le dernier épisode votre nombre de points et vos classement parmi tout les participants !</br>
@@ -60,8 +61,8 @@
 
     </div>
     {% else %}
-    <div class="jumbotron">
-        <h1 class="display-4">Questionnaire</h1>
+    <div class="jumbotrol" >
+        <h1 class="display-4" style="font-family: 'viking'">Questionnaire</h1>
         <p class="lead">Vous avez déjà répondu au questionnaire. </br>
                         Rendez vous sur la page mon compte pour consulter vos réponses.
         </p>
