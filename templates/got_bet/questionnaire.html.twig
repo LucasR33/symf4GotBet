@@ -3,6 +3,7 @@
 {% block title %}GotBet - Questionnaire{% endblock %}
 
 {% block body %}
+    {% if (app.user.jouer == 0)%}
     <div class="jumbotron">
         <h1 class="display-4">Questionnaire</h1>
         <p class="lead">Devinez le futur des personnages de Games Of Thrones dans l'ultime saison.</br>
@@ -58,6 +59,14 @@
             </div>
 
     </div>
+    {% else %}
+    <div class="jumbotron">
+        <h1 class="display-4">Questionnaire</h1>
+        <p class="lead">Vous avez déjà répondu au questionnaire. </br>
+                        Rendez vous sur la page mon compte pour consulter vos réponses.
+        </p>
+    </div>
+    {% endif %}
 {% endblock %}
 {% block script %}
 
