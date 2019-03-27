@@ -27,6 +27,7 @@
                             <table class="table table">
                                 <thead>
                                     <tr>
+                                        <th scope="col"></th>
                                         <th scope="col">Prénom</th>
                                         <th scope="col">Nom</th>
                                         <th scope="col">Etat</th>
@@ -36,9 +37,10 @@
                                             <form action="">
                                                 {% for perso in personnages %}
                                                     <tr>
-                                                    <td>{{ perso.prenom }}</td>
-                                                    <td id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
-                                                    <td>
+                                                    <td><img src="{{asset('img/personnages/' ~ perso.id ~ '.png')}}" alt="..." class="img-thumbnail rounded-circle"></td>
+                                                    <td style="vertical-align:middle">{{ perso.prenom }}</td>
+                                                    <td style="vertical-align:middle" id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
+                                                    <td style="vertical-align:middle">
                                                         <div class="form-group">
                                                             <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
                                                                 <option>Vivant</option>
