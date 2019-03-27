@@ -19,6 +19,16 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
+        $secret = "6LdRWJoUAAAAANSolQM458YHxksRIber8MZluDbi";
+        $response = $_POST['g-recaptcha-response'];
+        $remoteip = $_SERVER['REMOTE_ADDR'];
+        $api_url ="https://www.google.com/recaptcha/api/siteverify?secret="
+          .$secret
+          ."&response=".$response
+          ."&remoteip=".$remoteip;
+        $decode = json_decode(file_get_contents($api_url), true);
+        if($decode['success'] == true){
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -49,5 +59,6 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+        }
     }
 }
