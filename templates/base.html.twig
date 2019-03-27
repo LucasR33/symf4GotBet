@@ -19,25 +19,26 @@
     </head>
     <body>
      {% if app.user %}
-      <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
+    <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
      {% endif %}
       <div class="nav-trigger js_navbar">
 			<span></span><span></span><span></span>
-		  </div>
-  		<div class="nav-menu">
-  			<ul>
-          {% if app.user %}
-    				<li><a href="{{path('got_bet')}}"><h2 class="mb">Accueil</h2></a></li>
-            <li><a href="{{path('questionnaire')}}"><h2 class="mb">Questions</h2></a></li>
-    				<li><a href="{{path('scores')}}"><h2 class="mb">Scores</h2></a></li>
-    				<li><a href="{{path('compte')}}"><h2 class="mb">Mon compte</h2></a></li>
-          {% endif %}
-            <li><a href="{{path('about')}}"><h2 class="mb">A propos</h2></a></li>
-          {% if app.user %}
-            <li><a href="{{path('app_logout')}}"><h2 class="mb">Déconnexion</h2></a></li>
-          {% endif %}
-  			</ul>
-  		</div>
+		</div>
+		<div class="nav-menu">
+			<ul>
+        {% if app.user %}
+				<a href="{{path('got_bet')}}"><li><h5 class="mt">Accueil</h5></li></a>
+        <a href="{{path('questionnaire')}}"><li><h5 class="mb">Questions</h5></li></a>
+				<a href="{{path('scores')}}"><li><h5 class="mt">Scores</h5></li></a>
+				<a href="{{path('compte')}}"><li><h5 class="mb">Mon compte</h5></li></a>
+        {% endif %}
+          <a href="{{path('about')}}"><li><h5 class="mt">A propos</h5></li></a>
+        {% if app.user %}
+          <a href="{{path('app_logout')}}"><li><h5 class="mb">Déconnexion</h5></li></a>
+       {% endif %}
+			</ul>
+
+		</div>
 <section>
   <div class="content">
 
