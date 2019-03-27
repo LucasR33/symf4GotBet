@@ -7,48 +7,56 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.2.1/flatly/bootstrap.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-        <link href="{{ asset('css/css.css') }}" rel="stylesheet" /> 
+        <link href="{{ asset('css/css.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-       
+        <style type="text/css">
+        @font-face {
+         font-family: 'viking';
+         src:    url({{asset('/css/font/Game-of-Thrones.otf')}}) format('opentype');;
+    }
+</style>
+
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="{{ path('got_bet') }}">GoTBet</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+     {% if app.user %}
+    <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
+     {% endif %}
+      <div class="nav-trigger js_navbar">
+			<span></span><span></span><span></span>
+		</div>
+		<div class="nav-menu">
+			<ul>
+            {% if app.user %}
+				<a href="{{path('got_bet')}}"> <li><h5 class="mt">Acceuil</h5></li></a>
+                <a href="{{path('questionnaire')}}"><li><h5 class="mb">Questions</h5></li></a>
+				<a href="{{path('scores')}}"><li><h5 class="mt">Scores</h5></li></a>
+				<a href="{{path('compte')}}"><li><h5 class="mb">Mon compte</h5></li></a>
+				
+                {% endif %}
+                <a href="{{path('about')}}"><li><h5 class="mt">A propos</h5></li></a>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('got_bet') }}">Accueil</a>
-                    </li>
-                    {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('questionnaire') }}">Questionnaire</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('scores')}}">Scores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Mon compte</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">A propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+                {% if app.user %}
+                <a href="{{path('app_logout')}}"><li><h5 class="mb">Déconnexion</h5></li></a>
+                 {% endif %}
+			</ul>
+            
+		</div>
+<section>
+  <div class="content">
+    
+    </div>
+  </section>
+<section class="bgwhite">
+  <div class="content">
+    
+    </div>
+  </section>
         {%  block body%} {%endblock %}
     </body>
     <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
     {% block script %}
     {% endblock %}
-    
-</html>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+</html>
+<script src="{{ asset('js/nav.js') }}"></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

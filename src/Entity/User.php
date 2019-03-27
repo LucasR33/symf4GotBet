@@ -44,12 +44,22 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $score;
+    private $score = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="user")
      */
     private $reponses;
+
+    /**
+     * @ORM\Column(type="binary", nullable=true)
+     */
+    private $ajouer;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $jouer;
 
     public function __construct()
     {
@@ -144,9 +154,9 @@ class User implements UserInterface, \Serializable
     }
 
     public function eraseCredentials() {
-        
+
     }
-    
+
     /** @see \Serializable::serialize() */
     public function serialize()
     {
@@ -175,17 +185,17 @@ class User implements UserInterface, \Serializable
         ) = unserialize($serialized, array('allowed_classes' => false));
     }
 
-    public function getUserPersonnage(): ?UserPersonnage
-    {
-        return $this->userPersonnage;
-    }
-
-    public function setUserPersonnage(?UserPersonnage $userPersonnage): self
-    {
-        $this->userPersonnage = $userPersonnage;
-
-        return $this;
-    }
+    // public function getUserPersonnage(): ?UserPersonnage
+    // {
+    //     return $this->userPersonnage;
+    // }
+    //
+    // public function setUserPersonnage(?UserPersonnage $userPersonnage): self
+    // {
+    //     $this->userPersonnage = $userPersonnage;
+    //
+    //     return $this;
+    // }
 
     /**
      * @return Collection|Reponse[]
@@ -214,6 +224,30 @@ class User implements UserInterface, \Serializable
                 $reponse->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAjouer()
+    {
+        return $this->ajouer;
+    }
+
+    public function setAjouer($ajouer): self
+    {
+        $this->ajouer = $ajouer;
+
+        return $this;
+    }
+
+    public function getJouer(): ?bool
+    {
+        return $this->jouer;
+    }
+
+    public function setJouer(bool $jouer): self
+    {
+        $this->jouer = $jouer;
 
         return $this;
     }

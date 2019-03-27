@@ -3,13 +3,16 @@
 {% block title %}GotBet - Scores{% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <h1 class="display-4">Scores</h1>
-        <p class="lead">Tableau des scores et résultats</p>
+    <div class="jumbotrol">
+        <h1 class="display-4"  style="font-family: 'viking'">Scores</h1>
+        <p class="lead">Tableau des scores et résultats</br>
+                        Chaque bonne réponse rapporte 1 point.</br>
+                        Les 5 premiers remporte un cadeau !
+        </p>
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-center">
+        <div class="col-6">
         <div style="margin-left:20px;">
             <div class="card border-primary mb-3" style="max-width: 30rem;">
                 <div class="card-header">Participants</div>
@@ -30,11 +33,11 @@
                                         <td>{{ user.score }}</td>
                                         </tr>
                                     </tbody>
-                            {% endfor %} 
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
         <h3><strong><center>{nom, prenom}</center></strong></h3>
         <h4>ton score est de: {score}</h4>

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GotBet - Scores{% endblock %}
+
+{% block body %}
+    <div class="jumbotron jumbotrol">
+        <h1 class="display-4" style="font-family: 'viking'">Mon Compte</h1>
+        <p class="lead">Retrouvez vos réponses et votre score</br>
+        </p>
+    </div>
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+        <div style="margin-left:20px;">
+            <div class="card border-primary mb-3" style="max-width: 30rem;">
+                <div class="card-header">Mon score : {{res[0].total}}</br>
+                                        Mes réponses :
+                </div>
+                    <div class="card-body">
+                        <table class="table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prénom</th>
+                                    <th scope="col">Statut</th>
+                                </tr>
+                            </thead>
+                                    <tbody>
+                                        {% for pr in persorep %}
+                                          <tr>
+                                            <td> {{ pr.nom }} </td>
+                                            <td> {{ pr.prenom }} </td>
+                                            <td> {{ pr.statut }} </td>
+                                          </tr>
+                                        {% endfor %}
+                                    </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
