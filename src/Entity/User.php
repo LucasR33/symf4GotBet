@@ -61,6 +61,7 @@ class User implements UserInterface, \Serializable
      */
     private $jouer;
 
+
     public function __construct()
     {
         $this->reponses = new ArrayCollection();

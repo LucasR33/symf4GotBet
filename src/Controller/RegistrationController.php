@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\CaptchaFormType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 
 class RegistrationController extends AbstractController
 {
@@ -19,15 +21,15 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
-        $secret = "6LdRWJoUAAAAANSolQM458YHxksRIber8MZluDbi";
-        $response = $_POST['g-recaptcha-response'];
-        $remoteip = $_SERVER['REMOTE_ADDR'];
-        $api_url ="https://www.google.com/recaptcha/api/siteverify?secret="
-          .$secret
-          ."&response=".$response
-          ."&remoteip=".$remoteip;
-        $decode = json_decode(file_get_contents($api_url), true);
-        if($decode['success'] == true){
+        // $secret = "6LdRWJoUAAAAANSolQM458YHxksRIber8MZluDbi";
+        // $response = $_POST['g-recaptcha-response'];
+        // $remoteip = $_SERVER['REMOTE_ADDR'];
+        // $api_url ="https://www.google.com/recaptcha/api/siteverify?secret="
+        //   .$secret
+        //   ."&response=".$response
+        //   ."&remoteip=".$remoteip;
+        // $decode = json_decode(file_get_contents($api_url), true);
+        // if($decode['success'] == true){
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -60,5 +62,5 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
         }
-    }
+    
 }
