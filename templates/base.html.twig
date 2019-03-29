@@ -19,26 +19,25 @@
     </head>
     <body>
      {% if app.user %}
-    <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
+        <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
      {% endif %}
-      <div class="nav-trigger js_navbar">
-			<span></span><span></span><span></span>
-		</div>
-		<div class="nav-menu">
-			<ul>
-        {% if app.user %}
-				<a href="{{path('got_bet')}}"><li><h5 class="mt">Accueil</h5></li></a>
-        <a href="{{path('questionnaire')}}"><li><h5 class="mb">Questions</h5></li></a>
-				<a href="{{path('scores')}}"><li><h5 class="mt">Scores</h5></li></a>
-				<a href="{{path('compte')}}"><li><h5 class="mb">Mon compte</h5></li></a>
-        {% endif %}
-          <a href="{{path('about')}}"><li><h5 class="mt">A propos</h5></li></a>
-        {% if app.user %}
-          <a href="{{path('app_logout')}}"><li><h5 class="mb">Déconnexion</h5></li></a>
-       {% endif %}
-			</ul>
-
-		</div>
+     <h5  class="display7"><a class="email" href="{{path('got_bet')}}">  GOTBET</a></h5>
+      <div class="menu"> <span></span> </div>
+         <nav id="nav">
+	        <ul class="main">
+			      <li><a href="{{path('got_bet')}}">Accueil</a></li>
+            {% if app.user %}
+              <li><a href="{{path('questionnaire')}}">Questions</a></li>
+              <li><a href="{{path('scores')}}">Scores</a></li>
+              <li><a href="{{path('compte')}}">Mon compte</a></li>
+            {% endif %}
+            <li><a href="{{path('about')}}">A propos</a></li>
+            {% if app.user %}
+               <li><a href="{{path('app_logout')}}">Déconnexion</a></li>
+            {% endif %}
+		</ul>
+</nav>
+<div class="overlay"></div>
 <section>
   <div class="content">
 
@@ -57,5 +56,14 @@
     {% endblock %}
 
 </html>
+
+<script>
+$('.menu, .overlay').click(function () {
+	$('.menu').toggleClass('clicked');
+	
+	$('#nav').toggleClass('show');
+	
+});
+</script>
 <script src="{{ asset('js/nav.js') }}"></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
