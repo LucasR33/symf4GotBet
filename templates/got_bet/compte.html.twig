@@ -19,6 +19,7 @@
                         <table class="table table">
                             <thead>
                                 <tr>
+                                    <th scope="col"></th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Pronostic</th>
@@ -29,6 +30,7 @@
                                         {% for pr in persorep %}
                                           
                                           <tr>
+                                            <td><img src="{{asset('img/personnages/' ~ pr.id ~ '.png')}}" style="width:100%" alt="..." class="img-thumbnail rounded-circle"></td>        
                                             <td> {{ pr.nom }} </td>
                                             <td> {{ pr.prenom }} </td>
                                             {% if pr.etat is null %}
