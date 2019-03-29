@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -252,4 +253,20 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
+  /**
+   * @CaptchaAssert\ValidCaptcha(
+   *      message = "Le captcha est invalide." 
+   * )
+   */
+  protected $captchaCode;
+
+  public function getCaptchaCode()
+  {
+    return $this->captchaCode;
+  }
+
+  public function setCaptchaCode($captchaCode)
+  {
+    $this->captchaCode = $captchaCode;
+  }
 }

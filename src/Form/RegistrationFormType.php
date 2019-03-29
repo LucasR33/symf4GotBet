@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType; 
 
 class RegistrationFormType extends AbstractType
 {
@@ -37,6 +38,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('captchaCode', CaptchaType::class, array('captchaConfig' => 'ExampleCaptcha')); 
         ;
     }
 
