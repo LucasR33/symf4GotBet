@@ -119,7 +119,7 @@ class GotBetController extends AbstractController
     public function monCompte(){
         $entityManager = $this->getDoctrine()->getManager();
         $query = $entityManager->createQuery(
-            'SELECT p.nom, p.prenom, r.statut, u.score
+            'SELECT p.nom, p.prenom, r.statut, u.score,p.etat
             FROM App\Entity\Personnage p
             INNER JOIN App\Entity\Reponse r
             INNER JOIN App\Entity\User u

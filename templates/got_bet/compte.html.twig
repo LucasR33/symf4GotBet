@@ -21,15 +21,28 @@
                                 <tr>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prénom</th>
-                                    <th scope="col">Statut</th>
+                                    <th scope="col">Pronostic</th>
+                                     <th scope="col">Réponse</th>
                                 </tr>
                             </thead>
                                     <tbody>
                                         {% for pr in persorep %}
+                                          
                                           <tr>
                                             <td> {{ pr.nom }} </td>
                                             <td> {{ pr.prenom }} </td>
-                                            <td> {{ pr.statut }} </td>
+                                            {% if pr.etat is null %}
+                                                 <td > {{ pr.statut }} </td>
+                                             {% else%}
+                                                  {% if pr.statut == pr.etat %}
+                                                 <td style="color:green"> {{ pr.statut }} </td>
+                                             {% else%}
+                                                 <td style="color:red"> {{ pr.statut }} </td>
+                                             {% endif %}
+                                            
+                                          {% endif %}
+                                           
+                                             <td> {{ pr.etat }} </td>
                                           </tr>
                                         {% endfor %}
                                     </tbody>
