@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
-use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType; 
 
 class RegistrationFormType extends AbstractType
 {
@@ -38,18 +38,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('captchaCode', CaptchaType::class, array('captchaConfig' => 'ExampleCaptcha')); 
         ;
-        $builder->add('recaptcha', EWZRecaptchaType::class, array(
-            'attr' => array(
-                'options' => array(
-                    'theme' => 'light',
-                    'type'  => 'image',
-                    'size'  => 'normal',
-                    'defer' => true,
-                    'async' => true,
-                )
-            )
-        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
