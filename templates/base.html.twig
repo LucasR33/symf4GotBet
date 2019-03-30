@@ -18,9 +18,7 @@
 
     </head>
     <body>
-     {% if app.user %}
-        <a class="email" href="{{path('compte')}}"> {{app.user.mail}}</a>
-     {% endif %}
+
      <h5  class="display7"><a class="email" href="{{path('got_bet')}}">  GOTBET</a></h5>
       <div class="menu"> <span></span> </div>
          <nav id="nav">
@@ -60,9 +58,9 @@
 <script>
 $('.menu, .overlay').click(function () {
 	$('.menu').toggleClass('clicked');
-	
+
 	$('#nav').toggleClass('show');
-	
+
 });
 </script>
 <script src="{{ asset('js/nav.js') }}"></script>

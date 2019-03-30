@@ -5,12 +5,14 @@
 {% block body %}
     <div class="jumbotron jumbotrol">
         <h1 class="display-4" style="font-family: 'viking'">Mon Compte</h1>
-        <p class="lead">Retrouvez vos pronostics et votre score.</br>
+        <p class="lead">{{app.user.mail}}</br>
+          Retrouvez vos pronostics et votre score.
+
         </p>
     </div>
     <div class="container">
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-13">
         <div style="margin-left:20px;">
             <div class="card border-primary mb-3" style="max-width: 30rem;">
                 <div class="card-header">Mon score : {{res[0].total}}</br>
@@ -28,9 +30,9 @@
                             </thead>
                                     <tbody>
                                         {% for pr in persorep %}
-                                          
+
                                           <tr>
-                                            <td><img src="{{asset('img/personnages/' ~ pr.id ~ '.png')}}" style="width:100%" alt="..." class="img-thumbnail rounded-circle"></td>        
+                                            <td><img src="{{asset('img/personnages/' ~ pr.id ~ '.png')}}" style="width:100%" alt="..." class="img-thumbnail rounded-circle"></td>
                                             <td> {{ pr.nom }} </td>
                                             <td> {{ pr.prenom }} </td>
                                             {% if pr.etat is null %}
@@ -41,9 +43,9 @@
                                              {% else%}
                                                  <td style="color:red"> {{ pr.statut }} </td>
                                              {% endif %}
-                                            
+
                                           {% endif %}
-                                           
+
                                              <td> {{ pr.etat }} </td>
                                           </tr>
                                         {% endfor %}
