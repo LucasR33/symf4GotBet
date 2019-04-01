@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
 use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType; 
 
 class RegistrationFormType extends AbstractType
@@ -17,9 +18,51 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, ['label' => 'Nom :', 'attr' => ['class' => 'form-control']])
-            ->add('prenom', TextType::class, ['label' => 'Prénom :', 'attr' => ['class' => 'form-control']])
-            ->add('mail', TextType::class, ['label' => 'Mail :', 'attr' => ['class' => 'form-control']])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom :',
+                'attr' => ['class' => 'form-control'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un nom.',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre nom doit faire au minimum {{ limit }} caractères.',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 15,
+                    ]),
+                ],
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom :',
+                'attr' => ['class' => 'form-control'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez entrer un prénom.',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre prénom doit faire au minimum {{ limit }} caractères.',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 20,
+                    ]),
+                ],
+            ])
+            ->add('mail', TextType::class, [
+                'label' => 'Mail :',
+                'attr' => ['class' => 'form-control'],
+                'required' => true,
+                'constraints' => [
+                    new Notblank([
+                        'message' => 'Veuillez entrer un email.',
+                    ]),
+                    new Email([
+                        'message' => 'Merci de renter un VRAI email.',
+                    ]),
+                ],
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -28,11 +71,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer un mot de passe.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit faire au minimum {{ limit }} caractères.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
