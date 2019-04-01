@@ -90,7 +90,8 @@
      the content's height is greater than the image's height */
   background-attachment: fixed;
 
-  background-size: cover;
+	background-size: cover;
+	background-color: #0D0D0D;
 
 
 
