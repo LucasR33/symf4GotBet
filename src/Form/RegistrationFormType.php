@@ -59,7 +59,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez entrer un email.',
                     ]),
                     new Email([
-                        'message' => 'Merci de renter un VRAI email.',
+                        'message' => 'Ce mail sera utilisé pour vous contacter en cas de victoire.',
                     ]),
                 ],
             ])
