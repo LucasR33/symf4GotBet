@@ -22,6 +22,7 @@ class GotBetController extends AbstractController
     {
         return $this->render('got_bet/index.html.twig', [
             'controller_name' => 'GotBetController',
+            'message' => false
         ]);
     }
 
@@ -70,9 +71,9 @@ class GotBetController extends AbstractController
           WHERE u.id = :u')
           ->setParameter('u', $this->getUser());
 
-
         return $this->render('got_bet/index.html.twig', [
-        $queryJouer->execute()
+        $queryJouer->execute(),
+        'message'=> true
     ]);
     }
 
