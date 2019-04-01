@@ -20,7 +20,9 @@
     <body style="background-color: #101012">
 
      <h5  class="display7" style="padding-top:10px"><a class="email" href="{{path('got_bet')}}">  GOTBET</a></h5>
+      <h5 class="display8" style="padding-top:10px"> Menu </h5>
       <div class="menu"> <span></span> </div>
+     
          <nav id="nav">
 	        <ul class="main">
 			      <li><a href="{{path('got_bet')}}">Accueil</a></li>
@@ -29,7 +31,7 @@
               <li><a href="{{path('scores')}}">Scores</a></li>
               <li><a href="{{path('compte')}}">Mon compte</a></li>
             {% endif %}
-            <li><a href="{{path('about')}}">Des questions ?</a></li>
+            <li><a href="{{path('about')}}">Tout savoir</a></li>
             {% if app.user %}
                <li><a href="{{path('app_logout')}}">Déconnexion</a></li>
             {% endif %}

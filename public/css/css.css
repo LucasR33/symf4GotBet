@@ -70,6 +70,14 @@
     position: absolute; /* postulat de départ */
     top: 1.5%; left: 50%; 
     transform: translate(-50%, -50%);
+	}
+	.display8{
+    font-family:'viking';
+    position: absolute; /* postulat de départ */
+		top: 2.5%; left: 93%; 
+		color: #ffffff;
+		transform: translate(-50%, -50%);
+		
   }
   .lead3{
     position: absolute; /* postulat de départ */
