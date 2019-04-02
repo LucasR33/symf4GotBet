@@ -128,7 +128,7 @@ class GotBetController extends AbstractController
             ->setParameter('u', $this->getUser());
 
         $query2 = $entityManager->createQuery(
-            'SELECT r.statut, p.etat, u.score, COUNT(r) as total
+            'SELECT COUNT(r) as total
             FROM App\Entity\Personnage p
             INNER JOIN App\Entity\Reponse r
             INNER JOIN App\Entity\User u
