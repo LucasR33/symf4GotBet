@@ -130,6 +130,14 @@ class GotBetController extends AbstractController
            ;
         $compte = $queryCompte->execute();
         $nb=$compte[0]["nombre"];
+
+        $queryParticipants = $entityManager->createQuery(
+            'SELECT count(u) as nombre
+            From App\Entity\User u
+            ')
+           ;
+        $participants = $queryParticipants->execute();
+        $nbPart=$participants[0]["nombre"];
         
         $query = $entityManager->createQuery(
             'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
@@ -187,6 +195,7 @@ class GotBetController extends AbstractController
             
         return $this->render('got_bet/compte.html.twig', [
             'persorep' => $personnages,
+            'nb' => $nbPart,
             'res' => $query2->execute(),
         ]);
     }
