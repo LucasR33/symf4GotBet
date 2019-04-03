@@ -11,7 +11,8 @@
     {# Encadré de notification #}
     {% if message == true %}
         <div class="alert alert-success" role="alert">
-            Merci beaucoup ! Votre pronostic a bien été enregistré. A bientôt pour les résultats, restez à l'affût !
+            Merci beaucoup ! Votre pronostic a bien été enregistré. A bientôt pour les résultats, restez à l'affût !<br />
+            Suivez les <a href="{{path('scores')}}" class="alert-link">scores</a> et <a href="{{path('compte')}}" class="alert-link">les statistiques</a>.
         </div>
     {% endif %}
     {# fin encadré de notification #}
