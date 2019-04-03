@@ -4,9 +4,19 @@ body {
   
 }
 
+.phraseCopyright {
+    color: white;
+    text-align: center;
+    margin-top: 250px;
+    position: absolute; /* postulat de départ */
+    top: 70%; left: 50%; /* à 50%/50% du parent référent */
+    transform: translate(-50%, -50%);
+}
+
 .btn-cont {
   text-align: center;
   margin-top: 200px;
+  padding-bottom: 100px;
   position: absolute; /* postulat de départ */
   top: 70%; left: 50%; /* à 50%/50% du parent référent */
   transform: translate(-50%, -50%);
