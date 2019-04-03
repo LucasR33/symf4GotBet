@@ -153,4 +153,14 @@ class GotBetController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/gotbet/statistiques", name="statistiques")
+     */
+    public function statistiques()
+    {
+        //Retourne sous forme de pourcentages les statistiques de votes sur le statut d'un personnage.
+
+        return $this->render('got_bet/statistiques.html.twig', []);
+    }
 }
