@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137587802-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-137587802-1');
+        </script>
+        <!-- FIN Global site tag (gtag.js) - Google Analytics -->
+
+
         <meta charset="UTF-8" />
         <title>{% block title %}Bienvenue sur GotBet!{% endblock %}</title>
         {% block stylesheets %}
@@ -28,10 +40,6 @@
               <li><a href="{{path('questionnaire')}}">Questions</a></li>
               <li><a href="{{path('scores')}}">Scores</a></li>
               <li><a href="{{path('compte')}}">Mon compte</a></li>
-              {% if app.user.jouer == 1 %}
-              {# Si le user a déjà joué + est connecté, il peut accèder aux statistiques des votes #}
-                  <li><a href="#">Statistiques</a></li>
-              {% endif %}
             {% endif %}
             <li><a href="{{path('about')}}">Tout savoir</a></li>
             {% if app.user %}

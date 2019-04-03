@@ -21,7 +21,7 @@
                 <span class='line-4'></span>
             </a>
         <div style="margin-left:20px;">
-            <div class="card border-primary mb-3" style="max-width: 30rem;">
+            <div class="card border-primary mb-3" style="max-width: 40rem;">
                 <div class="card-header"><b>Mon score : {{res[0].total}}</b></br>
                 </div>
                     <div class="card-body">
@@ -33,6 +33,7 @@
                                     <th scope="col">Prénom</th>
                                     <th scope="col">Pronostic</th>
                                     <th scope="col">Réponse</th>
+                                    <th scope="col">Statistiques</th>
                                 </tr>
                             </thead>
                                     <tbody>
@@ -54,6 +55,33 @@
                                           {% endif %}
 
                                              <td> {{ pr.etat }} </td>
+
+                                             <td>
+                                                   {% for s in pr.stats %}
+                                                        {% if s.libelle == 'Vivant' %}
+                                                        {{s.libelle}} : 
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{s.nombre}}%" aria-valuenow="{{s.nombre}}" aria-valuemin="0" aria-valuemax="100" title="{{s.nombre|round}}"></div>
+                                                            </div>
+                                                        {% elseif s.libelle == 'Marcheur blanc' %}
+                                                        {{s.libelle}} : 
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{s.nombre}}%" aria-valuenow="{{s.nombre}}" aria-valuemin="0" aria-valuemax="100" title="{{s.nombre|round}}"></div>
+                                                            </div>
+                                                        {% elseif s.libelle == 'Mort' %}
+                                                        {{s.libelle}} : 
+                                                            <div class="progress">
+                                                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: {{s.nombre}}%" aria-valuenow="{{s.nombre}}" aria-valuemin="0" aria-valuemax="100" title="{{s.nombre|round}}"></div>
+                                                            </div>
+                                                        {% else %}
+                                                        Non voté : 
+                                                            <div class="progress">
+                                                              <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{s.nombre}}%" aria-valuenow="{{s.nombre}}" aria-valuemin="0" aria-valuemax="100"  title="{{s.nombre|round}}"></div>
+                                                            </div>
+                                                        {% endif %}
+                                                        {# {{ s.libelle }} {{s.nombre}} #}<br>
+                                                   {% endfor %}
+                                              </td>
                                           </tr>
                                         {% endfor %}
                                     </tbody>

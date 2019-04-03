@@ -117,8 +117,20 @@ class GotBetController extends AbstractController
     /**
      * @Route("/gotbet/compte", name="compte", methods="GET")
      */
+    
     public function monCompte(){
         $entityManager = $this->getDoctrine()->getManager();
+        $queryCompte = $entityManager->createQuery(
+            'SELECT count(distinct(u)) as nombre
+          
+            From App\Entity\User u
+            INNER JOIN App\Entity\Reponse r
+            WHERE  r.user = u 
+            ')
+           ;
+        $compte = $queryCompte->execute();
+        $nb=$compte[0]["nombre"];
+        
         $query = $entityManager->createQuery(
             'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
             FROM App\Entity\Personnage p
@@ -126,7 +138,8 @@ class GotBetController extends AbstractController
             INNER JOIN App\Entity\User u
             WHERE p.id = r.personnage AND r.user = :u AND u.id = :u')
             ->setParameter('u', $this->getUser());
-
+        $personnages = $query->execute();
+        
         $query2 = $entityManager->createQuery(
             'SELECT COUNT(r) as total
             FROM App\Entity\Personnage p
@@ -147,20 +160,34 @@ class GotBetController extends AbstractController
             ->setParameter('u', $this->getUser());
           $query3->execute();
 
+       $i=0;
+      
+           foreach ($personnages  as $ligne)
+            {
+               $personnages[$i]["stats"]=array();
+                
+                $query4 = $entityManager->createQuery(
+                'SELECT count(r) as nb, r.statut
+                  FROM App\Entity\Reponse r
+                  where r.personnage='.$ligne["id"].'
+                  GROUP BY  r.statut
+                  ORDER BY r.statut
+                  DESC
+                  ');
+                $stats=array();
+               foreach ($query4->execute()  as $ligneStat)
+                { 
+                    $stat["libelle"]=$ligneStat["statut"];
+                    $stat["nombre"]=$ligneStat["nb"]*100/$nb;
+                    $stats[]=$stat;
+                }
+                $personnages[$i]["stats"]=$stats;
+                 $i++;
+            }
+            
         return $this->render('got_bet/compte.html.twig', [
-            'persorep' => $query->execute(),
-            'res' => $query2->execute()
+            'persorep' => $personnages,
+            'res' => $query2->execute(),
         ]);
-
-    }
-
-    /**
-     * @Route("/gotbet/statistiques", name="statistiques")
-     */
-    public function statistiques()
-    {
-        //Retourne sous forme de pourcentages les statistiques de votes sur le statut d'un personnage.
-
-        return $this->render('got_bet/statistiques.html.twig', []);
     }
 }
