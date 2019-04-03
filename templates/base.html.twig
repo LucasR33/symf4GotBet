@@ -30,7 +30,7 @@
               <li><a href="{{path('compte')}}">Mon compte</a></li>
               {% if app.user.jouer == 1 %}
               {# Si le user a déjà joué + est connecté, il peut accèder aux statistiques des votes #}
-                  <li><a href="{{path('statistiques')}}">Statistiques</a></li>
+                  <li><a href="#">Statistiques</a></li>
               {% endif %}
             {% endif %}
             <li><a href="{{path('about')}}">Tout savoir</a></li>
