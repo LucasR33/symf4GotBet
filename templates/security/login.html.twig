@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+<div style="margin-left:20px;margin-top:20px;">
+    <div class="card border-dark mb-3" style="max-width: 30rem;">
+    <div class="card-header"><h2>Connexion</h2></div>
+    <div class="card-body">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputMail" class="sr-only">Mail</label>
-    <input type="text" value="{{ last_username }}" name="mail" id="inputMail" class="form-control" placeholder="Mail" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <label for="inputMail" class="sr-only">E-mail</label>
+    <input type="text" value="{{ last_username }}" name="mail" id="inputMail" class="form-control" placeholder="Adresse e-mail..." required autofocus></br>
+    <label for="inputPassword" class="sr-only">Mot de passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe..." required></br>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -30,7 +36,13 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Se connecter
     </button>
 </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}

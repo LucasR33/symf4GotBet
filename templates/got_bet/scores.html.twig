@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GotBet - Scores{% endblock %}
+
+{% block body %}
+    <div class="jumbotrol">
+        <h1 class="display-4"  style="font-family: 'viking'">Scores</h1>
+        <p class="lead">Tableau des scores</br>
+                        Chaque bonne réponse vous rapporte 1 point.</br>
+                        Les 4 premiers remportent un cadeau ! (Un tirage au sort sera effectué en cas d'égalité)
+        </p>
+    </div>
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-15">
+        <div style="margin-left:20px;">
+            <div class="card border-primary mb-3" style="max-width: 30rem;">
+                <div class="card-header">{{users|length}} participants</div>
+                    <div class="card-body">
+                        <table class="table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Prénom</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Score</th>
+                                </tr>
+                            </thead>
+                            {% set ordre = 0 %}
+                            {% for user in users %}
+                                    <tbody>
+                                        <tr>
+                                        <td>{% set ordre = ordre + 1 %} {{ordre}}</td>
+                                        <td>{{ user.prenom }}</td>
+                                        <td>{{ user.nom }}</td>
+                                        <td>{{ user.score }}</td>
+                                        </tr>
+                                    </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

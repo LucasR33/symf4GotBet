@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
 class User implements UserInterface, \Serializable
 {
@@ -30,7 +35,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $mail;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -40,7 +45,29 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $score;
+    private $score = 0;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="user")
+     */
+    private $reponses;
+
+    /**
+     * @ORM\Column(type="binary", nullable=true)
+     */
+    private $ajouer;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $jouer;
+
+
+    public function __construct()
+    {
+        $this->reponses = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -71,24 +98,24 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getMail(): ?string
     {
-        return $this->email;
+        return $this->mail;
     }
 
-    public function setEmail(string $email): self
+    public function setMail(string $mail): self
     {
-        $this->email = $email;
+        $this->mail = $mail;
 
         return $this;
     }
 
-    public function getpassword(): ?string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setpassword(string $password): self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -108,7 +135,7 @@ class User implements UserInterface, \Serializable
     }
 
     public function getUsername() {
-        return $this->email;
+        return $this->mail;
     }
 
     public function getSalt() {
@@ -129,15 +156,17 @@ class User implements UserInterface, \Serializable
     }
 
     public function eraseCredentials() {
-        
+
     }
-    
+
     /** @see \Serializable::serialize() */
     public function serialize()
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->mail,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -149,10 +178,95 @@ class User implements UserInterface, \Serializable
     {
         list (
             $this->id,
-            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->mail,
             $this->password,
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized, array('allowed_classes' => false));
     }
+
+    // public function getUserPersonnage(): ?UserPersonnage
+    // {
+    //     return $this->userPersonnage;
+    // }
+    //
+    // public function setUserPersonnage(?UserPersonnage $userPersonnage): self
+    // {
+    //     $this->userPersonnage = $userPersonnage;
+    //
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection|Reponse[]
+     */
+    public function getReponses(): Collection
+    {
+        return $this->reponses;
+    }
+
+    public function addReponse(Reponse $reponse): self
+    {
+        if (!$this->reponses->contains($reponse)) {
+            $this->reponses[] = $reponse;
+            $reponse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReponse(Reponse $reponse): self
+    {
+        if ($this->reponses->contains($reponse)) {
+            $this->reponses->removeElement($reponse);
+            // set the owning side to null (unless already changed)
+            if ($reponse->getUser() === $this) {
+                $reponse->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAjouer()
+    {
+        return $this->ajouer;
+    }
+
+    public function setAjouer($ajouer): self
+    {
+        $this->ajouer = $ajouer;
+
+        return $this;
+    }
+
+    public function getJouer(): ?bool
+    {
+        return $this->jouer;
+    }
+
+    public function setJouer(bool $jouer): self
+    {
+        $this->jouer = $jouer;
+
+        return $this;
+    }
+  /**
+   * @CaptchaAssert\ValidCaptcha(
+   *      message = "Le captcha est invalide." 
+   * )
+   */
+  protected $captchaCode;
+
+  public function getCaptchaCode()
+  {
+    return $this->captchaCode;
+  }
+
+  public function setCaptchaCode($captchaCode)
+  {
+    $this->captchaCode = $captchaCode;
+  }
 }

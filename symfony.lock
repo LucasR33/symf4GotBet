@@ -1,4 +1,10 @@
 {
+    "captcha-com/captcha": {
+        "version": "4.2.3"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.10"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -77,11 +83,26 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "excelwebzone/recaptcha-bundle": {
+        "version": "v1.5.13"
+    },
     "facebook/webdriver": {
         "version": "1.6.0"
     },
+    "fairlane/cookie-consent-bundle": {
+        "version": "1.0.2"
+    },
     "fig/link-util": {
         "version": "1.0.0"
+    },
+    "google/recaptcha": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "155d19cc6b4fddd9393064f553bdbe3f2f16c918"
+        }
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -91,6 +112,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.2.0"
+    },
+    "ocramius/package-versions": {
+        "version": "1.4.0"
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
@@ -270,6 +294,9 @@
         }
     },
     "symfony/polyfill-intl-icu": {
+        "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {
