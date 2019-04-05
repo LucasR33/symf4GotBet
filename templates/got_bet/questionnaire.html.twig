@@ -29,7 +29,7 @@
             <div class="col-15">
             <div style="margin-left:20px;">
                 <div class="card border-primary mb-3" style="max-width: 50rem;">
-                    <div class="card-header">Personnages !!! <b>la validation est définitive, vous ne pourrez pas modifier vos pronostics </b> !!!</div>
+                    <div class="card-header">Personnages <br/><b>La validation est définitive, vous ne pourrez pas modifier vos pronostics.</b></div>
                         <div class="card-body">
                         <form action="{{ path('createReponse') }}" method="POST">
                             <table class="table table">
@@ -75,7 +75,7 @@
     <div class="jumbotrol" >
         <h1 class="display-4" style="font-family: 'viking'">Questionnaire</h1>
         <p class="lead">Vous avez déjà répondu au questionnaire. </br>
-                        Rendez-vous sur les <a href="{{path('compte')}}">statistiques</a> et comparer vos réponses avec les autres participants.
+                        Rendez-vous sur les <a class="link" href="{{path('compte')}}">statistiques</a> et comparer vos réponses avec les autres participants.
         </p>
     </div>
     {% endif %}
