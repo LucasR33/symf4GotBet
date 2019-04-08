@@ -124,6 +124,7 @@ body {
 }
 
 .btn-cont .btn {
+  position: relative;
   padding: 20px 70px;
   border: 1px solid white;
   color: white;

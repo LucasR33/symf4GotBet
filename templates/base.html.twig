@@ -40,15 +40,15 @@
           <div class="menu" style=""><h5 class=" white" style="font-family: 'viking'; position: relative; margin-left: -20px;"> Menu  </h5><span></span></div>
             <nav id="nav">
               <ul class="main">
-                <li><a href="{{path('got_bet')}}">Accueil</a></li>
+                <li><a href="{{path('got_bet')}}" style="text-align: left;">Accueil</a></li>
                 {% if app.user %}
-                  <li><a href="{{path('questionnaire')}}">Questionnaire</a></li>
-                  <li><a href="{{path('scores')}}">Scores</a></li>
-                  <li><a href="{{path('compte')}}">Les statistiques</a></li>
+                  <li><a href="{{path('questionnaire')}}" style="text-align: left;">Questionnaire</a></li>
+                  <li><a href="{{path('scores')}}" style="text-align: left;">Scores</a></li>
+                  <li><a href="{{path('compte')}}" style="text-align: left;">Les statistiques</a></li>
                 {% endif %}
-                <li><a href="{{path('about')}}">Tout savoir</a></li>
+                <li><a href="{{path('about')}}" style="text-align: left;">Tout savoir</a></li>
                 {% if app.user %}
-                    <li><a href="{{path('app_logout')}}">Déconnexion</a></li>
+                    <li><a href="{{path('app_logout')}}" style="text-align: left;">Déconnexion</a></li>
                 {% endif %}
                 <li>
                   <i><b>La vidéo, les images utilisées proviennent de HBO et cette première est la bande-annonce officielle de la saison 8 diffusée sur youtube.
