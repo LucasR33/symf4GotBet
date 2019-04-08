@@ -33,29 +33,31 @@
     </head>
     <body style="background-color: #101012">
     {{ include('got_bet/cookie-info.html.twig') }}
-      <div class="row">
-        <h5  class="display7"><a class="email" href="{{path('got_bet')}}"> GOTBET</a></h5>
-        <h5 class="display8 hideMobile" style=""> Menu </h5>
-        <div class="menu" style=""> <span></span> </div>
-          <nav id="nav">
-            <ul class="main">
-              <li><a href="{{path('got_bet')}}">Accueil</a></li>
-              {% if app.user %}
-                <li><a href="{{path('questionnaire')}}">Questionnaire</a></li>
-                <li><a href="{{path('scores')}}">Scores</a></li>
-                <li><a href="{{path('compte')}}">Les statistiques</a></li>
-              {% endif %}
-              <li><a href="{{path('about')}}">Tout savoir</a></li>
-              {% if app.user %}
-                  <li><a href="{{path('app_logout')}}">Déconnexion</a></li>
-              {% endif %}
-              <li>
-                <i><b>La vidéo, les images utilisées proviennent de HBO et cette première est la bande-annonce officielle de la saison 8 diffusée sur youtube.
-                  Ce site internet est à but non lucratif, et dans le cadre d'un projet d'étude en licence ASI.
-                </b></i>
-              </li>
-            </ul>
-          </nav>
+      <div class="row centered">
+        <div class="col-12">
+          <h5><a class="email" href="{{path('got_bet')}}"> GOTBET</a></h5>
+        </div>
+          <div class="menu" style=""><h5 class=" white" style="font-family: 'viking'; position: relative; margin-left: -20px;"> Menu  </h5><span></span></div>
+            <nav id="nav">
+              <ul class="main">
+                <li><a href="{{path('got_bet')}}">Accueil</a></li>
+                {% if app.user %}
+                  <li><a href="{{path('questionnaire')}}">Questionnaire</a></li>
+                  <li><a href="{{path('scores')}}">Scores</a></li>
+                  <li><a href="{{path('compte')}}">Les statistiques</a></li>
+                {% endif %}
+                <li><a href="{{path('about')}}">Tout savoir</a></li>
+                {% if app.user %}
+                    <li><a href="{{path('app_logout')}}">Déconnexion</a></li>
+                {% endif %}
+                <li>
+                  <i><b>La vidéo, les images utilisées proviennent de HBO et cette première est la bande-annonce officielle de la saison 8 diffusée sur youtube.
+                    Ce site internet est à but non lucratif, et dans le cadre d'un projet d'étude en licence ASI.
+                  </b></i>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       <div class="overlay">
         {# Quelqu'un m'explique à quoi ça sert ?#}
