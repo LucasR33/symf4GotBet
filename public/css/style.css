@@ -4,7 +4,7 @@ body {
   
 }
 
-@media screen and (max-width : 767px){
+@media screen and (max-width : 1200px){
   .hideMobile {
     display: none !important;
   }
@@ -12,7 +12,7 @@ body {
     display: block !important;
   }
 }
-@media screen and (min-width : 767px){
+@media screen and (min-width : 1200px){
   .hideMobile {
     display: block !important;
   }
@@ -20,7 +20,7 @@ body {
     display: none !important;
   }
 }
-
+/* DEBUT CSS DE TIMER DEBUT SAISON */
 #clockdiv{
   position: absolute; /* postulat de départ */
 	font-family: sans-serif;
@@ -29,7 +29,7 @@ body {
 	font-weight: 100;
 	text-align: center;
   font-size: 30px;
-  top: 30%; left: 50%;
+  top: 33%; left: 30%;
   transform: translate(-50%, -50%);
   opacity: 0.70;
 }
@@ -52,11 +52,50 @@ body {
 	padding-top: 5px;
 	font-size: 16px;
 }
+/* FIN TIMER DE DEBUT SAISON */
+
+/* DEBUT TIMER D AFFICHAGE RESULTATS */
+
+#clockdivResult{
+  position: absolute; /* postulat de départ */
+	font-family: sans-serif;
+	color: #fff;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+  font-size: 30px;
+  top: 33%; left: 70%;
+  transform: translate(-50%, -50%);
+  opacity: 0.70;
+}
+
+#clockdivResult > div{
+  padding: 10px;
+	border-radius: 3px;
+	background:  black;
+  display: inline-block;
+}
+
+#clockdivResult div > span{
+	padding: 15px;
+	border-radius: 3px;
+	background: #2F4F4F;
+	display: inline-block;
+}
+
+/* FIN TIMER D AFFICHAGE RESULTATS */
 
 .demo{
   font-size: 35px;
   position: absolute; /* postulat de départ */
-  top: 30%; left: 50%;
+  top: 33%; left: 30%;
+  transform: translate(-50%, -50%);
+}
+
+.demoResult{
+  font-size: 35px;
+  position: absolute; /* postulat de départ */
+  top: 33%; left: 70%;
   transform: translate(-50%, -50%);
 }
 

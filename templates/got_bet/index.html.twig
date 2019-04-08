@@ -46,6 +46,33 @@
                 <div id="timermobile" class="showMobile demo" style="font-size: 18px; display: none;">
                     <p id="demo"></p>
                 </div>
+
+                {# timer d affichage des résultats #}
+
+                <h1></h1>
+                <div id="clockdivResult" class="hideMobile" style="display: none;">
+                    <div>
+                        <span class="days2"></span>
+                        <div class="smalltext">Jours</div>
+                    </div>
+                    <div>
+                        <span class="hours2"></span>
+                        <div class="smalltext">Heures</div>
+                    </div>
+                    <div>
+                        <span class="minutes2"></span>
+                        <div class="smalltext">Minutes</div>
+                    </div>
+                    <div>
+                        <span class="seconds2"></span>
+                        <div class="smalltext">Secondes</div>
+                    </div><br/>
+                    avant les résultats ...
+                </div>
+
+                <div id="timermobile" class="showMobile demoResult" style="font-size: 18px; display: none;">
+                    <p id="demoResult"></p>
+                </div>
             </div>
             <div class="row">
                 <p class="lead2" style="text-align: center;">Pronostiquez sur les personnages qui vont survivre, mourir ou devenir marcheur blanc dans la saison finale de Game of Thrones.
@@ -142,6 +169,57 @@
     initializeClock('clockdiv', deadline);
     // ############## FIN TIMER GRAND ECRAN ##############
 
+    // ############## DEBUT TIMER RESULT ##############
+    var compteRebours = new Date("May 20, 2019 01:00:00").getTime();
+
+    function getTimeRemaining2(endtime2) {
+        var t2 = Date.parse(endtime2) - Date.parse(new Date());
+
+        var now = new Date().getTime();
+        var diff = compteRebours - now;
+
+        var days2 = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var hours2 = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes2 = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds2 = Math.floor((diff % (1000 * 60)) / 1000);
+
+        return {
+            'total': t2,
+            'days': days2,
+            'hours': hours2,
+            'minutes': minutes2,
+            'seconds': seconds2
+        };
+    }
+
+    function initializeClock2(id, endtime2) {
+        var clock = document.getElementById(id);
+        var daysSpan2 = clock.querySelector('.days2');
+        var hoursSpan2 = clock.querySelector('.hours2');
+        var minutesSpan2 = clock.querySelector('.minutes2');
+        var secondsSpan2 = clock.querySelector('.seconds2');
+
+        function updateClock2() {
+            var t2 = getTimeRemaining2(endtime2);
+
+            daysSpan2.innerHTML = t2.days;
+            hoursSpan2.innerHTML = ('0' + t2.hours).slice(-2);
+            minutesSpan2.innerHTML = ('0' + t2.minutes).slice(-2);
+            secondsSpan2.innerHTML = ('0' + t2.seconds).slice(-2);
+
+            if (t2.total <= 0) {
+            clearInterval(timeinterval);
+            }
+        }
+
+        updateClock2();
+        var timeinterval = setInterval(updateClock2, 1000);
+    }
+
+    var deadline2 = new Date(Date.parse(new Date()) + new Date("May 20, 2019 01:00:00").getTime());
+    initializeClock2('clockdivResult', deadline2);
+    // ############## FIN TIMER RESULT ##############
+
     // ############## DEBUT TIMER POUR MOBILE ##############
     // Set the date we're counting down to
     var countDownDate = new Date("Apr 14, 2019 01:00:00").getTime();
@@ -168,6 +246,34 @@
         if (distance < 0) {
             clearInterval(x);
             document.getElementById("demo").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+
+
+    var countDownDate = new Date("May 20, 2019 01:00:00").getTime();
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("demoResult").innerHTML = days + " jours " + hours + " heures "
+        + minutes + " minutes " + seconds + " secondes <br/> avant les résultats.";
+
+        // If the count down is finished, write some text 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("demoResult").innerHTML = "EXPIRED";
         }
     }, 1000);
     // ############## FIN TIMER POUR MOBILE ##############
