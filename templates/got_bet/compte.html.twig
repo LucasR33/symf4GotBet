@@ -29,11 +29,22 @@
                         <div class="col-6">
                             <b>Mon score : {{res[0].total}}</b>
                         </div>
+
                         <div class="col-6" style="text-align: right;">
                             <b>{{nb}}</b> participants
                         </div>
                     </div>
-                     
+                    <div class="row">
+                        <div class="col-offset-3 col-9">
+                                <b>Votre trône : 
+                                    {% if bonus|length  > 0 %}
+                                        {{ bonus[0].nom }} {{ bonus[0].prenom}}
+                                    {% else%}
+                                        un autre personnage
+                                    {% endif %}
+                                </b>
+                        </div>
+                    </div>
                 </div>
                     <div class="card-body">
                         <table id="score" class="table table" style="display: none;">

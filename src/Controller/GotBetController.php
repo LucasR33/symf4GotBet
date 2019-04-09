@@ -44,6 +44,49 @@ class GotBetController extends AbstractController
     }
 
     /**
+     * @Route("/gotbet/bonus", name="bonus")
+     */
+    public function bonus()
+    {
+        $repo = $this->getDoctrine()->getRepository(Personnage::class);
+        $personnages = $repo->findAll();
+
+
+        return $this->render('got_bet/bonus.html.twig', [
+            'controller_name' => 'GotBetController',
+            'personnages' => $personnages
+        ]);
+    }    
+    
+    /**
+     * @Route("/gotbet/createReponseBonus", name="createReponseBonus", methods="POST")
+     */
+    public function createReponseBonus(Request $request){
+
+        $entityManager = $this->getDoctrine()->getManager();
+        if ($request->request->get("personnage")=="autre")
+        {
+        $queryJouer = $entityManager->createQuery(
+          'UPDATE App\Entity\User u SET u.jouerBonnus = 1
+          WHERE u.id = :u')
+          ->setParameter('u', $this->getUser());            
+        }
+        else
+        {
+          $queryJouer = $entityManager->createQuery(
+          'UPDATE App\Entity\User u SET u.jouerBonnus = 1, u.personnage=:perso
+          WHERE u.id = :u')
+          ->setParameter('u', $this->getUser())
+          ->setParameter('perso', $request->request->get("personnage"));
+
+        }
+        
+        return $this->render('got_bet/index.html.twig', [
+        $queryJouer->execute(),
+        'message'=> true
+    ]);
+    }
+    /**
      * @Route("/gotbet/createReponse", name="createReponse", methods="POST")
      */
     public function createReponse(Request $request){
@@ -138,6 +181,16 @@ class GotBetController extends AbstractController
            ;
         $participants = $queryParticipants->execute();
         $nbPart=$participants[0]["nombre"];
+
+        $query = $entityManager->createQuery(
+            'SELECT p.id,p.nom, p.prenom
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\User u
+            WHERE p.id = u.personnage AND u.id = :u')
+            ->setParameter('u', $this->getUser());
+        $bonus = $query->execute();
+
+
         
         $query = $entityManager->createQuery(
             'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
@@ -196,6 +249,7 @@ class GotBetController extends AbstractController
         return $this->render('got_bet/compte.html.twig', [
             'persorep' => $personnages,
             'nb' => $nbPart,
+            'bonus' => $bonus,
             'res' => $query2->execute(),
         ]);
     }
