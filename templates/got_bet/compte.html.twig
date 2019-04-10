@@ -5,7 +5,7 @@
 {% block body %}
     <div class="jumbotron jumbotrol">
         <h1 class="display-4" style="font-family: 'viking'">Les statistiques</h1>
-        <p class="lead">{{app.user.mail}}</br>
+        <p class="lead">!! {{app.user.jouerBonnus}} !! </br>
           Retrouvez vos pronostics et votre score.
 
         </p>
@@ -35,6 +35,7 @@
                             <b>{{nb}}</b> participants
                         </div>
                     </div>
+                    {% if app.user.jouerBonnus ==  1 %}
                     <div class="row">
                         <div class="col-offset-3 col-9">
                                 <b>Votre trône : 
@@ -46,6 +47,7 @@
                                 </b>
                         </div>
                     </div>
+                     {% endif %}
                 </div>
                     <div class="card-body">
                         <table id="score" class="table table" style="display: none;">
@@ -66,10 +68,12 @@
                                             <td style="vertical-align: middle">
                                             
                                                 <img src="{{asset('img/personnages/' ~ pr.id ~ '.png')}}" style="width:100%" alt="..." class="img-thumbnail rounded-circle">
-                                                    Trône : 
+                                             {% if app.user.jouerBonnus ==  1 %}
+                                                Trône : 
                                                    <div class="progress">
                                                         <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{pr.trone}}%" aria-valuenow="{{pr.trone}}" aria-valuemin="0" aria-valuemax="100" title="{{pr.trone|round}}"></div>
                                                    </div>
+                                             {% endif %}
                                             </td>
                                             <td style="vertical-align: middle"> {{ pr.nom }} </td>
                                             <td style="vertical-align: middle"> {{ pr.prenom }} </td>
@@ -110,7 +114,7 @@
                                                               <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{s.nombre}}%" aria-valuenow="{{s.nombre}}" aria-valuemin="0" aria-valuemax="100"  title="{{s.nombre|round}}"></div>
                                                             </div>
                                                         {% endif %}
-                                                        {# {{ s.libelle }} {{s.nombre}} #}<br>
+                                                     
                                                    {% endfor %}
                                               </td>
                                           </tr>

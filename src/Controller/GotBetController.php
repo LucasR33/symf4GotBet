@@ -272,6 +272,7 @@ class GotBetController extends AbstractController
                 
                 if(count($trone)>0)
                 {
+                  
                 $nbTrone=$trone[0]["nb"]/$nbPartTrone*100;
                 }
                 else
