@@ -78,7 +78,7 @@
                                             <td style="vertical-align: middle"> {{ pr.nom }} </td>
                                             <td style="vertical-align: middle"> {{ pr.prenom }} </td>
                                             {% if pr.etat is null %}
-                                                 <td > {{ pr.statut }} </td>
+                                                 <td style="vertical-align: middle"> {{ pr.statut }} </td>
                                              {% else%}
                                                   {% if pr.statut == pr.etat %}
                                                  <td style="color:green;vertical-align: middle"> {{ pr.statut }} </td>
