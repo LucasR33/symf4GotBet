@@ -9,13 +9,14 @@
         <h1 class="display-5" style="font-family: 'viking'" >Bonus</h1>
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                     <p class="lead">Qui sera sur le trône ?</br>
-                                    Vous trouvez la bonne réponse et vous avez 5 points.</br>
-                                    Sélectionner le personnage ou autre si pensez à un autre personnage.
+                                    Trouvez la bonne réponse et vous obtenez 5 points !</br>
+                                    Sélectionnez (en cochant) le personnage (ou "autre" si pensez à un autre personnage) </br>
+                                    La validation est définitive, vous ne pourrez pas modifier votre pronostic
                     </p>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <img style="width: 70%;" src="{{asset('img/cadeauGotbet.png')}}" alt="cadeauxGot">
                 </div>
             </div>
@@ -27,18 +28,11 @@
             <div class="col-15">
             <div style="margin-left:20px;">
                 <div class="card border-primary mb-3" style="max-width: 50rem;">
-                    <div class="card-header">Personnages <br/><b>La validation est définitive, vous ne pourrez pas modifier votre pronostic.</b></div>
+                    <div class="card-header"></div>
                         <div class="card-body">
                         <form action="{{ path('createReponseBonus') }}" method="POST">
                             <table class="table table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Prénom</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Etat</th>
-                                    </tr>
-                                </thead>
+
                                         <tbody>
 
                                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -49,11 +43,10 @@
                                                     <td style="vertical-align:middle">{{ perso.prenom }}</td>
                                                     <td style="vertical-align:middle" id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
                                                     <td style="vertical-align:middle">
-                                                        <div class="form-group">
-                                                            <label class="btn btn-secondary">
+                                                       
+                                                          
                                                               <input type="radio" name="personnage" value="{{ perso.id }}" autocomplete="off"> 
-                                                            </label>
-                                                        </div>
+                                                   
                                                     </td>
                                                     </tr>
                                                 {% endfor %}
@@ -62,9 +55,9 @@
                                                     <td style="vertical-align:middle">Autre</td>
                                                     <td style="vertical-align:middle" id="0" class="id"></td>
                                                     <td style="vertical-align:middle">
-                                                        <div class="form-group">
+                                                       
                                                             <input type="radio" name="personnage" value="autre" autocomplete="off" > 
-                                                        </div>
+                                                  
                                                     </td>
                                                     </tr>
                                             </div>

@@ -9,15 +9,16 @@
         <h1 class="display-5" style="font-family: 'viking'" >Questionnaire</h1>
         <div class="container">
             <div class="row">
-                <div class="col-6">
-                    <p class="lead">Devinez le sort des personnages de Game Of Thrones dans l'ultime saison.</br>
-                                    Chaque bonne réponse vous rapportera 1 point.</br>
+                <div class="col-9">
+                    <p class="lead">Devinez le sort des personnages de Game Of Thrones dans l'ultime saison </br>
+                                    Chaque bonne réponse vous rapportera 1 point</br>
                                     Découvrez après le dernier épisode votre nombre de points et votre classement parmi tous les participants !</br></br>
                                     Comment jouer ? </br>
-                                    Choisissez parmi la liste déroulante : vivant, mort ou marcheur blanc puis validez vos réponses.
+                                    Choisissez parmi la liste déroulante : vivant, mort ou marcheur blanc puis validez vos réponses</br>
+                                    Attention ! Toute validation est définitive: vous ne pourrez pas modifier vos pronostics
                     </p>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <img style="width: 70%;" src="{{asset('img/cadeauGotbet.png')}}" alt="cadeauxGot">
                 </div>
             </div>
@@ -29,18 +30,11 @@
             <div class="col-15">
             <div style="margin-left:20px;">
                 <div class="card border-primary mb-3" style="max-width: 50rem;">
-                    <div class="card-header">Personnages <br/><b>La validation est définitive, vous ne pourrez pas modifier vos pronostics.</b></div>
+                    <div class="card-header"> </div>
                         <div class="card-body">
                         <form action="{{ path('createReponse') }}" method="POST">
                             <table class="table table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Prénom</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Etat</th>
-                                    </tr>
-                                </thead>
+
                                         <tbody>
                                             <form action="">
                                                 {% for perso in personnages %}
@@ -51,7 +45,7 @@
                                                     <td style="vertical-align:middle">
                                                         <div class="form-group">
                                                             <select class="custom-select" name="statut_{{ perso.id }}" id="statut_{{ perso.id }}">
-                                                                <option>------</option>
+                                                                <option>Etat</option>
                                                                 <option>Vivant</option>
                                                                 <option>Mort</option>
                                                                 <option>Marcheur blanc</option>
