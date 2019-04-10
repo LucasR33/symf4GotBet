@@ -45,7 +45,7 @@
                                           
                                              {% for perso in personnages %}
                                                     <tr>
-                                                    <td><img src="{{asset('img/personnages/' ~ perso.id ~ '.png')}}" style="width:50%" alt="..." class="img-thumbnail rounded-circle"></td>
+                                                    <td><img src="{{asset('img/personnages/' ~ perso.id ~ '.png')}}" style="width:20%" alt="..." class="img-thumbnail rounded-circle"></td>
                                                     <td style="vertical-align:middle">{{ perso.prenom }}</td>
                                                     <td style="vertical-align:middle" id="{{ perso.id }}" class="id">{{ perso.nom }}</td>
                                                     <td style="vertical-align:middle">
@@ -63,9 +63,7 @@
                                                     <td style="vertical-align:middle" id="0" class="id"></td>
                                                     <td style="vertical-align:middle">
                                                         <div class="form-group">
-                                                            <label class="btn btn-secondary">
-                                                              <input type="radio" name="personnage" value="autre" autocomplete="off"> 
-                                                            </label>
+                                                            <input type="radio" name="personnage" value="autre" autocomplete="off" > 
                                                         </div>
                                                     </td>
                                                     </tr>

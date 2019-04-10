@@ -182,6 +182,16 @@ class GotBetController extends AbstractController
         $participants = $queryParticipants->execute();
         $nbPart=$participants[0]["nombre"];
 
+
+
+         $queryParticipantsTrone = $entityManager->createQuery(
+            'SELECT count(u) as nombre
+            From App\Entity\User u where u.jouerBonnus=1
+            ')
+           ;
+        $participantsTrone = $queryParticipantsTrone->execute();
+        $nbPartTrone=$participantsTrone[0]["nombre"];       
+
         $query = $entityManager->createQuery(
             'SELECT p.id,p.nom, p.prenom
             FROM App\Entity\Personnage p
@@ -190,7 +200,14 @@ class GotBetController extends AbstractController
             ->setParameter('u', $this->getUser());
         $bonus = $query->execute();
 
-
+        $reqAutre = $entityManager->createQuery(
+            'SELECT count(u) as nombre
+            From App\Entity\User u
+            where u.personnage is null and u.jouerBonnus=1
+            ')
+           ;
+        $autre = $reqAutre->execute();
+        $nbautre=$autre[0]["nombre"]/$nbPartTrone*100;
         
         $query = $entityManager->createQuery(
             'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
@@ -243,11 +260,32 @@ class GotBetController extends AbstractController
                     $stats[]=$stat;
                 }
                 $personnages[$i]["stats"]=$stats;
+                
+                $query5 = $entityManager->createQuery(
+                'SELECT count(u) as nb
+                  FROM App\Entity\User u
+                  where u.personnage='.$ligne["id"].'
+                  GROUP BY  u.personnage
+                 ');
+                
+                $trone = $query5->execute();
+                
+                if(count($trone)>0)
+                {
+                $nbTrone=$trone[0]["nb"]/$nbPartTrone*100;
+                }
+                else
+                {
+                    $nbTrone=0;
+                }
+                $personnages[$i]["trone"]=$nbTrone;
+                
                  $i++;
             }
-            
+
         return $this->render('got_bet/compte.html.twig', [
             'persorep' => $personnages,
+            'nbAutre' => $nbautre,
             'nb' => $nbPart,
             'bonus' => $bonus,
             'res' => $query2->execute(),
