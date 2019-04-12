@@ -42,7 +42,7 @@
               <ul class="main">
                 <li><a href="{{path('got_bet')}}" style="text-align: left;">Accueil</a></li>
                 {% if app.user %}
-                  {% if "now"|date('d') == 15 %}
+                  {% if "now"|date('d') >= 15 %}
                     
                   {% else %}
                     <li><a href="{{path('questionnaire')}}" style="text-align: left;">Questionnaire</a></li>

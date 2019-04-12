@@ -125,7 +125,7 @@
                     {% if app.user %}
                          <p class="btn-cont">
                        {% if app.user.jouer is null%}
-                            {% if "now"|date('d') == 15 %}
+                            {% if "now"|date('d') >= 15 %}
                                 
                             {% else %}
                                 <a class="btn" href="{{path('questionnaire')}}">Vivant ? Mort ? Marcheur Blanc ?
@@ -150,7 +150,7 @@
                             </a>
                         {% endif %}
                         {% if app.user.jouerBonnus is null %}
-                            {% if "now"|date('d') == 15 %}
+                            {% if "now"|date('d') >= 15 %}
                                 
                             {% else %}
                                 <a class="btn" href="{{path('bonus')}}">Qui montera sur le trône ?
@@ -165,7 +165,7 @@
                       
                     {% else %}
                         <p class="btn-cont">
-                            {% if "now"|date('d') == 15 %}
+                            {% if "now"|date('d') >= 15 %}
                                 
                             {% else %}
                                 <a class="btn" href="{{ path('app_register') }}">Inscription
