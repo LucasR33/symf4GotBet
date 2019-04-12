@@ -91,7 +91,7 @@
                 </div>
             </div>
             <br />
-             {% if app.user==false %}
+             {% if app.user == false %}
             <div class="mt-3 row">
                 <div class="mt-3 col-12">
                     <p class="white" style="text-align: center; font-size: 16px;">Pronostiquez sur les personnages qui vont survivre, mourir ou devenir marcheur blanc dans la saison finale de Game of Thrones.
@@ -125,13 +125,16 @@
                     {% if app.user %}
                          <p class="btn-cont">
                        {% if app.user.jouer is null%}
-                       
-                            <a class="btn" href="{{path('questionnaire')}}">Vivant ? Mort ? Marcheur Blanc ?
-                                <span class='line-1'></span>
-                                <span class='line-2'></span>
-                                <span class='line-3'></span>
-                                <span class='line-4'></span>
-                            </a>
+                            {% if "now"|date('d') == 15 %}
+                                
+                            {% else %}
+                                <a class="btn" href="{{path('questionnaire')}}">Vivant ? Mort ? Marcheur Blanc ?
+                                    <span class='line-1'></span>
+                                    <span class='line-2'></span>
+                                    <span class='line-3'></span>
+                                    <span class='line-4'></span>
+                                </a>
+                            {% endif %}
                         {% else %}
                             <a class="btn" href="{{path('compte')}}">Les stats
                                 <span class='line-1'></span>
@@ -147,23 +150,31 @@
                             </a>
                         {% endif %}
                         {% if app.user.jouerBonnus is null %}
-                             <a class="btn" href="{{path('bonus')}}">Qui montera sur le trône ?
-                                <span class='line-1'></span>
-                                <span class='line-2'></span>
-                                <span class='line-3'></span>
-                                <span class='line-4'></span>
-                            </a>
+                            {% if "now"|date('d') == 15 %}
+                                
+                            {% else %}
+                                <a class="btn" href="{{path('bonus')}}">Qui montera sur le trône ?
+                                    <span class='line-1'></span>
+                                    <span class='line-2'></span>
+                                    <span class='line-3'></span>
+                                    <span class='line-4'></span>
+                                </a>
+                            {% endif %}
                         {% endif %}
                         </p>
                       
                     {% else %}
                         <p class="btn-cont">
-                            <a class="btn" href="{{ path('app_register') }}">Inscription
-                                <span class='line-1'></span>
-                                <span class='line-2'></span>
-                                <span class='line-3'></span>
-                                <span class='line-4'></span>
-                            </a>
+                            {% if "now"|date('d') == 15 %}
+                                
+                            {% else %}
+                                <a class="btn" href="{{ path('app_register') }}">Inscription
+                                    <span class='line-1'></span>
+                                    <span class='line-2'></span>
+                                    <span class='line-3'></span>
+                                    <span class='line-4'></span>
+                                </a>
+                            {% endif %}
 
                             <a class="btn" href="{{ path('app_login') }}">Connexion
                                 <span class='line-1'></span>
@@ -181,7 +192,7 @@
 <script>
     // ############## DEBUT TIMER GRAND ECRAN ##############
     // Set the date we're counting down to
-    var countDownDate = new Date("Apr 14, 2019 12:00:40").getTime();
+    var countDownDate = new Date("Apr 14, 2019 12:00:00").getTime();
 
     function getTimeRemaining(endtime) {
         var t = Date.parse(endtime) - Date.parse(new Date());
