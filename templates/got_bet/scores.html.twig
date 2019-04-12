@@ -29,7 +29,7 @@
                             <tbody>
                             {% set ordre = 0 %}
                             {% for user in users %}
-                                <tr>
+                                <tr class="score" id="{{user.id}}">
                                     <td>{% set ordre = ordre + 1 %} {{ordre}}</td>
                                     <td>{{ user.prenom }}</td>
                                     <td>{{ user.nom }}</td>
@@ -43,6 +43,66 @@
             </div>
         </div>
     </div>
+      {% if app.user.jouerBonnus ==  1  and   app.user.jouer ==  1 %}                   
+    {% for user in users %}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pronostic de {{user.nom}} {{user.prenom}} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                    <table id="score" class="table table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Pronostic</th>
+                                </tr>
+                            </thead>
+                                    <tbody>
+                                          {% if user.jouerBonnus ==  1 %}
+                                        <tr>
+                                            <td>Trone : </td>
+                                            <td>{{user.personnage.nom}}</td>
+                                            <td>{{user.personnage.prenom}}</td>
+                                            <td></td>
+                                        </tr>
+                                        {% endif%}
+                                         {% for reponse in user.reponses %}
+                                          <tr>
+                                            <td style="vertical-align: middle">
+                                            
+                                                <img src="{{asset('img/personnages/' ~ reponse.personnage.id ~ '.png')}}" style="width:30%" alt="..." class="img-thumbnail rounded-circle">
+
+                                            </td>
+                                            <td style="vertical-align: middle"> {{ reponse.personnage.nom }} </td>
+                                            <td style="vertical-align: middle"> {{ reponse.personnage.prenom }} </td>
+
+                                             <td style="vertical-align: middle">{{ reponse.personnage.etat }} </td>
+
+                                             <td>
+                                        </td>
+                                          </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                        </table>                      
+    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}     
+{%endif%}
 {% endblock %}
 {% block script %}
 <script>
@@ -72,6 +132,14 @@
                 }
             }
         });
+      {% if app.user.jouerBonnus ==  1  and   app.user.jouer ==  1 %}                   
+     
+        $(".score").click(function(){
+            var id = $(this).attr("id");
+            var nom = '#exampleModal'+id;
+            $(nom).modal("show");
+        });
+        {%endif%}
     });
 </script>
 {% endblock %}

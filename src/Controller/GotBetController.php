@@ -127,6 +127,7 @@ class GotBetController extends AbstractController
      * @Route("/gotbet/scores", name="scores", methods="GET")
      */
     public function scores(){
+
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findBy([], ['score' => 'DESC']);
 
@@ -143,6 +144,7 @@ class GotBetController extends AbstractController
               ->setParameter('u', $u);
             $query3->execute();
         }
+        
         return $this->render('got_bet/scores.html.twig', [
             'users' => $users,
         ]);
