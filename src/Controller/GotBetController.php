@@ -122,7 +122,15 @@ class GotBetController extends AbstractController
             'messagebonus' => false
     ]);
     }
+    /**
+     * @Route("/gotbet/communautes", name="communautes", methods="GET")
+     */
+    public function communautes(){
 
+        
+        return $this->render('got_bet/communaute.html.twig', [
+        ]);
+    }
     /**
      * @Route("/gotbet/scores", name="scores", methods="GET")
      */
