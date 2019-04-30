@@ -9,6 +9,7 @@ use App\Entity\Question;
 use App\Entity\Reponse;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 //use Symfony\Component\Routing\Annotation\JsonResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -159,6 +160,37 @@ class GotBetController extends AbstractController
 
         return $this->render('got_bet/about.html.twig', [
             'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/gotbet/scores/{id}", options={"expose"=true}, name="score_user")
+     */
+    public function scoresByUser(Request $request, $id)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $queryUser = $em->createQuery(
+            'SELECT u.nom, u.prenom 
+            FROM App\Entity\User u
+            WHERE u.id = :u ')
+            ->setParameter('u', $id);
+        $user = $queryUser->execute();
+        $query = $em->createQuery(
+            'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\Reponse r
+            INNER JOIN App\Entity\User u
+            WHERE p.id = r.personnage AND r.user = :u AND u.id = :u')
+            ->setParameter('u', $id);
+        $personnages = $query->execute();
+        
+        return new JsonResponse([
+            'userScore' => $user,
+            'personnages' => $personnages,
         ]);
     }
 
