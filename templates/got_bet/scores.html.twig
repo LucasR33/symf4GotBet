@@ -3,11 +3,20 @@
 {% block title %}GotBet - Scores{% endblock %}
 
 {% block body %}
+{% set classement = 0 %}
     <div class="jumbotrol">
         <h1 class="display-4"  style="font-family: 'viking'">Scores</h1>
         <p class="lead">Tableau des scores</br>
                         Chaque bonne réponse vous rapporte 1 point.</br>
-                        Les 4 premiers remportent un cadeau ! (Un tirage au sort sera effectué en cas d'égalité)
+                        Les 4 premiers remportent un cadeau ! (Un tirage au sort sera effectué en cas d'égalité) <br/><br />
+
+                        {% for user in users %}
+                            {% set classement = classement + 1 %}
+                            {% if user.id == app.user.id %}
+                                Classement : {{classement}} <br />
+                                Score : {{user.score}}
+                            {% endif  %}
+                        {% endfor %}
         </p>
     </div>
     <div class="container">
