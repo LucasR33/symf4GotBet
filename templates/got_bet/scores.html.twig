@@ -52,6 +52,7 @@
 <script>
     $('#modalScore').on('hidden.bs.modal', function() {
         $("#modalScore").find(".modal-title").empty();
+        $("#modalScore").find(".corps-table").empty();
     })
     function reply_click(obj)
     {
@@ -62,7 +63,7 @@
             type: 'GET',
             url: url,
             success: function(data, dataType){
-                console.log(data.personnages.length);
+                console.log(data.personnages);
                 $("#modalScore").find(".modal-title").append("Réponses de " + data['userScore'][0]['nom'] + " " + data['userScore'][0]['prenom']);
                 for (var i = 0; i<data.personnages.length; i++) {
                     var etatString = "";
