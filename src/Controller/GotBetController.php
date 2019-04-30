@@ -127,8 +127,6 @@ class GotBetController extends AbstractController
      * @Route("/gotbet/communautes", name="communautes", methods="GET")
      */
     public function communautes(){
-
-        
         return $this->render('got_bet/communaute.html.twig', [
         ]);
     }
