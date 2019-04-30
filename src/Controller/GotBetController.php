@@ -127,6 +127,7 @@ class GotBetController extends AbstractController
      * @Route("/gotbet/communautes", name="communautes", methods="GET")
      */
     public function communautes(){
+
         return $this->render('got_bet/communaute.html.twig', [
         ]);
     }
@@ -193,10 +194,20 @@ class GotBetController extends AbstractController
             WHERE p.id = r.personnage AND r.user = :u AND u.id = :u')
             ->setParameter('u', $id);
         $personnages = $query->execute();
+
+        $queryConnected = $em->createQuery(
+            'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\Reponse r
+            INNER JOIN App\Entity\User u
+            WHERE p.id = r.personnage AND r.user = :u AND u.id = :u')
+            ->setParameter('u', $this->getUser());
+        $reponsesConnected = $queryConnected->execute();
         
         return new JsonResponse([
             'userScore' => $user,
             'personnages' => $personnages,
+            'reponsesConnected' => $reponsesConnected,
         ]);
     }
 
