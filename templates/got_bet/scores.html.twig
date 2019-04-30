@@ -9,15 +9,7 @@
         <p class="lead">Tableau des scores</br>
                         Chaque bonne réponse vous rapporte 1 point.</br>
                         Les 4 premiers remportent un cadeau ! (Un tirage au sort sera effectué en cas d'égalité) <br />
-                        Comparez votre résulat avec celui d'un autre joueur en cliquant sur nom !<br/><br />
-
-                        {% for user in users %}
-                            {% set classement = classement + 1 %}
-                            {% if user.id == app.user.id %}
-                                Classement : {{classement}} <br />
-                                Score : {{user.score}}
-                            {% endif  %}
-                        {% endfor %}
+                        Comparez votre résulat avec celui d'un autre joueur en cliquant sur son nom !<br/>
         </p>
     </div>
     <div class="container">
@@ -28,7 +20,22 @@
             {{ userScore.nom }}
         {% endif %}
             <div class="card border-primary mb-3" style="max-width: 30rem;">
-                <div class="card-header">{{users|length}} participants</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            {{users|length}} participants
+                        </div>
+                        <div class="col-6" style="text-align: right;">
+                            {% for user in users %}
+                                {% set classement = classement + 1 %}
+                                {% if user.id == app.user.id %}
+                                    Mon classement : {{classement}} <br />
+                                    Mon score : {{user.score}}
+                                {% endif  %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
                     <div class="card-body">
                         <table id="Datatable" class="table table display">
                             <thead>
@@ -75,8 +82,9 @@
             success: function(data, dataType){
                 console.log(data.personnages);
                 $("#modalScore").find(".modal-title").append("Réponses de " + data['userScore'][0]['nom'] + " " + data['userScore'][0]['prenom']);
+                var etatString = "";
+                var etatConnected = "";
                 for (var i = 0; i<data.personnages.length; i++) {
-                    var etatString = "";
                     if(data['personnages'][i]['etat'] == null) {
                         etatString = `<td style="vertical-align: middle"> ${data['personnages'][i]['statut']} </td>`;
                     } else {
@@ -84,6 +92,16 @@
                             etatString = `<td style="color:green;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
                         } else {
                             etatString = `<td style="color:red;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
+                        }
+                    }
+
+                    if(data['personnages'][i]['etat'] == null) {
+                        etatConnected = `<td style="vertical-align: middle"> ${data['reponsesConnected'][i]['statut']} </td>`;
+                    } else {
+                        if (data['personnages'][i]['etat'] == data['reponsesConnected'][i]['statut']) {
+                            etatConnected = `<td style="color:green;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
+                        } else {
+                            etatConnected = `<td style="color:red;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
                         }
                     }
                     
@@ -98,7 +116,8 @@
                         ` + etatString +
                         `
                                 <td style="vertical-align: middle">${data['personnages'][i]['etat']} </td>
-                                <td style="vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>
+                        ` + etatConnected +
+                        `
                             </tr>
                         `
                     );
