@@ -181,11 +181,35 @@ class GotBetController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $queryUser = $em->createQuery(
-            'SELECT u.nom, u.prenom 
+            'SELECT u.nom, u.prenom
             FROM App\Entity\User u
-            WHERE u.id = :u ')
+            WHERE u.id = :u')
             ->setParameter('u', $id);
         $user = $queryUser->execute();
+
+        $queryUserConnected = $em->createQuery(
+            'SELECT u.nom, u.prenom
+            FROM App\Entity\User u
+            WHERE u.id = :u')
+            ->setParameter('u', $this->getUser());
+        $userConnected = $queryUserConnected->execute();
+
+        $queryTrone = $em->createQuery(
+            'SELECT p.nom, p.prenom
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\User u
+            WHERE u.id = :u AND u.personnage = p.id')
+            ->setParameter('u', $this->getUser());
+        $troneConnected = $queryTrone->execute();
+
+        $queryTroneUser = $em->createQuery(
+            'SELECT p.nom, p.prenom
+            FROM App\Entity\Personnage p
+            INNER JOIN App\Entity\User u
+            WHERE u.id = :u AND u.personnage = p.id')
+            ->setParameter('u', $id);
+        $troneUser = $queryTroneUser->execute();
+
         $query = $em->createQuery(
             'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
             FROM App\Entity\Personnage p
@@ -196,7 +220,7 @@ class GotBetController extends AbstractController
         $personnages = $query->execute();
 
         $queryConnected = $em->createQuery(
-            'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
+            'SELECT p.id,p.nom, p.prenom, r.statut, u.score, p.etat
             FROM App\Entity\Personnage p
             INNER JOIN App\Entity\Reponse r
             INNER JOIN App\Entity\User u
@@ -205,6 +229,9 @@ class GotBetController extends AbstractController
         $reponsesConnected = $queryConnected->execute();
         
         return new JsonResponse([
+            'troneConnected' => $troneConnected,
+            'troneUser' => $troneUser,
+            'userConnected' => $userConnected,
             'userScore' => $user,
             'personnages' => $personnages,
             'reponsesConnected' => $reponsesConnected,

@@ -69,6 +69,7 @@
 <script>
     $('#modalScore').on('hidden.bs.modal', function() {
         $("#modalScore").find(".modal-title").empty();
+        $("#modalScore").find(".card-header").empty();
         $("#modalScore").find(".corps-table").empty();
     })
     function reply_click(obj)
@@ -80,8 +81,19 @@
             type: 'GET',
             url: url,
             success: function(data, dataType){
-                console.log(data.personnages);
+                console.log(data.troneUser);
                 $("#modalScore").find(".modal-title").append("Réponses de " + data['userScore'][0]['nom'] + " " + data['userScore'][0]['prenom']);
+                if (data['troneConnected'][0] == null) {
+                    var troneConnected = `<div class="col-6">Votre trône : un autre personnage</div>`;
+                } else {
+                    var troneConnected = `<div class="col-6">Votre trône : ${data['troneConnected'][0]['nom']} ${data['troneConnected'][0]['prenom']}</div>`;
+                }
+                if (data['troneUser'][0] == null) {
+                    var troneUser = `<div class="col-6">Son trône : un autre personnage</div>`;
+                } else {
+                    var troneUser = `<div class="col-6">Son trône : ${data['troneUser'][0]['nom']} ${data['troneUser'][0]['prenom']}</div>`;
+                }
+                $("#modalScore").find(".card-header").append(`<div class="row"> ${troneUser}  ${troneConnected}</div>`);
                 var etatString = "";
                 var etatConnected = "";
                 for (var i = 0; i<data.personnages.length; i++) {
