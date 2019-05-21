@@ -211,7 +211,7 @@ class GotBetController extends AbstractController
         $troneUser = $queryTroneUser->execute();
 
         $query = $em->createQuery(
-            'SELECT p.id,p.nom, p.prenom, r.statut, u.score,p.etat
+            'SELECT p.id,p.nom, p.prenom, r.statut, u.score, p.etat
             FROM App\Entity\Personnage p
             INNER JOIN App\Entity\Reponse r
             INNER JOIN App\Entity\User u

@@ -67,82 +67,84 @@
 {% endblock %}
 {% block script %}
 <script>
-    $('#modalScore').on('hidden.bs.modal', function() {
-        $("#modalScore").find(".modal-title").empty();
-        $("#modalScore").find(".card-header").empty();
-        $("#modalScore").find(".corps-table").empty();
-    })
-    function reply_click(obj)
-    {
-        var id = obj;
-        var url =  Routing.generate('score_user', {"id":id});
-        $.ajax({
-            async: true,
-            type: 'GET',
-            url: url,
-            success: function(data, dataType){
-                console.log(data.troneUser);
-                $("#modalScore").find(".modal-title").append("Réponses de " + data['userScore'][0]['nom'] + " " + data['userScore'][0]['prenom']);
-                if (data['troneConnected'][0] == null) {
-                    var troneConnected = `<div class="col-6">Votre trône : un autre personnage</div>`;
-                } else {
-                    var troneConnected = `<div class="col-6">Votre trône : ${data['troneConnected'][0]['nom']} ${data['troneConnected'][0]['prenom']}</div>`;
-                }
-                if (data['troneUser'][0] == null) {
-                    var troneUser = `<div class="col-6">Son trône : un autre personnage</div>`;
-                } else {
-                    var troneUser = `<div class="col-6">Son trône : ${data['troneUser'][0]['nom']} ${data['troneUser'][0]['prenom']}</div>`;
-                }
-                $("#modalScore").find(".card-header").append(`<div class="row"> ${troneUser}  ${troneConnected}</div>`);
-                var etatString = "";
-                var etatConnected = "";
-                for (var i = 0; i<data.personnages.length; i++) {
-                    if(data['personnages'][i]['etat'] == null) {
-                        etatString = `<td style="vertical-align: middle"> ${data['personnages'][i]['statut']} </td>`;
+        $('#modalScore').on('hidden.bs.modal', function() {
+            $("#modalScore").find(".modal-title").empty();
+            $("#modalScore").find(".card-header").empty();
+            $("#modalScore").find(".corps-table").empty();
+        })
+        function reply_click(obj)
+        {
+            $("#modalScore").find(".modal-title").empty();
+            $("#modalScore").find(".card-header").empty();
+            $("#modalScore").find(".corps-table").empty();
+            var id = obj;
+            var url =  Routing.generate('score_user', {"id":id});
+            $.ajax({
+                async: true,
+                type: 'GET',
+                url: url,
+                success: function(data, dataType){
+                    $("#modalScore").find(".modal-title").append("Réponses de " + data['userScore'][0]['nom'] + " " + data['userScore'][0]['prenom']);
+                    if (data['troneConnected'][0] == null) {
+                        var troneConnected = `<div class="col-6">Votre trône : un autre personnage</div>`;
                     } else {
-                        if (data['personnages'][i]['etat'] == data['personnages'][i]['statut']) {
-                            etatString = `<td style="color:green;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
-                        } else {
-                            etatString = `<td style="color:red;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
-                        }
+                        var troneConnected = `<div class="col-6">Votre trône : ${data['troneConnected'][0]['nom']} ${data['troneConnected'][0]['prenom']}</div>`;
                     }
+                    if (data['troneUser'][0] == null) {
+                        var troneUser = `<div class="col-6">Son trône : un autre personnage</div>`;
+                    } else {
+                        var troneUser = `<div class="col-6">Son trône : ${data['troneUser'][0]['nom']} ${data['troneUser'][0]['prenom']}</div>`;
+                    }
+                    $("#modalScore").find(".card-header").append(`<div class="row"> ${troneUser}  ${troneConnected}</div>`);
+                    var etatString = "";
+                    var etatConnected = "";
+                    for (var i = 0; i<24; i++) {
+                        if(data['personnages'][i]['etat'] == null) {
+                            etatString = `<td style="vertical-align: middle"> ${data['personnages'][i]['statut']} </td>`;
+                        } else {
+                            if (data['personnages'][i]['etat'] == data['personnages'][i]['statut']) {
+                                etatString = `<td style="color:green;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
+                            } else {
+                                etatString = `<td style="color:red;vertical-align: middle">${data['personnages'][i]['statut']} </td>`;
+                            }
+                        }
 
-                    if(data['personnages'][i]['etat'] == null) {
-                        etatConnected = `<td style="vertical-align: middle"> ${data['reponsesConnected'][i]['statut']} </td>`;
-                    } else {
-                        if (data['personnages'][i]['etat'] == data['reponsesConnected'][i]['statut']) {
-                            etatConnected = `<td style="color:green;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
+                        if(data['personnages'][i]['etat'] == null) {
+                            etatConnected = `<td style="vertical-align: middle"> ${data['reponsesConnected'][i]['statut']} </td>`;
                         } else {
-                            etatConnected = `<td style="color:red;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
+                            if (data['personnages'][i]['etat'] === data['reponsesConnected'][i]['statut']) {
+                                etatConnected = `<td style="color:green;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
+                            } else {
+                                etatConnected = `<td style="color:red;vertical-align: middle">${data['reponsesConnected'][i]['statut']} </td>`;
+                            }
                         }
+                        
+                        $("#modalScore").find(".corps-table").append(
+                            `
+                                <tr>
+                                    <td style="vertical-align: middle" style="width:40%">        
+                                        <img src="{{asset('img/personnages/')}}${data['personnages'][i]['id']}.png" alt="..." class="img-thumbnail rounded-circle">
+                                    </td>
+                                    <td style="vertical-align: middle"> ${data['personnages'][i]['nom']} </td>
+                                    <td style="vertical-align: middle"> ${data['personnages'][i]['prenom']} </td>
+                            ` + etatString +
+                            `
+                                    <td style="vertical-align: middle">${data['personnages'][i]['etat']} </td>
+                            ` + etatConnected +
+                            `
+                                </tr>
+                            `
+                        );
                     }
-                    
-                    $("#modalScore").find(".corps-table").append(
-                        `
-                            <tr>
-                                <td style="vertical-align: middle" style="width:40%">        
-                                    <img src="{{asset('img/personnages/')}}${data['personnages'][i]['id']}.png" alt="..." class="img-thumbnail rounded-circle">
-                                </td>
-                                <td style="vertical-align: middle"> ${data['personnages'][i]['nom']} </td>
-                                <td style="vertical-align: middle"> ${data['personnages'][i]['prenom']} </td>
-                        ` + etatString +
-                        `
-                                <td style="vertical-align: middle">${data['personnages'][i]['etat']} </td>
-                        ` + etatConnected +
-                        `
-                            </tr>
-                        `
-                    );
+                    $('#modalScore').modal();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert("Erreur");
+                    console.log("Error: "+errorThrown);
                 }
-                $('#modalScore').modal();
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown)
-            {
-                alert("Erreur");
-                console.log("Error: "+errorThrown);
-            }
-        });
-    }
+            });
+        }
         
     $(document).ready( function () {
         //@TODOOOOOOOOO
